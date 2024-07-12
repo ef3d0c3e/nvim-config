@@ -1,0 +1,7 @@
+Configure linter:
+https://github.com/mfussenegger/nvim-lint
+
+Fixes
+ * Fix broken tabs on the right
+ * Fix disabling rainbow mode (toggle for all features)
+ * Display macro recording as notification & statusbar
