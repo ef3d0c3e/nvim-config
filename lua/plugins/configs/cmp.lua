@@ -48,7 +48,7 @@ function config.cmp.config()
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
 			{ name = "path" },
-			{ name = "cmdline" },
+			--{ name = "cmdline" },
 			{ name = "treesitter" },
 			{ name = "doxygen" },
 		}, { name = "buffer" })
