@@ -251,6 +251,8 @@ local config = {
 
 	bufferline = {},
 
+	dropbar = {},
+
 	-- {{{ modes
 	modes = {
 		colors = mode_colors,
@@ -736,6 +738,31 @@ function config.bufferline.config()
 end
 -- }}}
 
+-- {{{ dropbar
+function config.dropbar.config()
+	require "dropbar".setup({
+		general = {
+			enable = function(buf, win, _)
+				return vim.api.nvim_buf_is_valid(buf)
+				and vim.api.nvim_win_is_valid(win)
+				and vim.wo[win].winbar == ''
+				and (
+				(pcall(vim.treesitter.get_parser, buf, vim.bo[buf].ft)) and true
+				or false
+				)
+			end,
+			attach_events = {
+				'OptionSet',
+				'BufWinEnter',
+				'BufWritePost',
+			},
+		},
+		bar = {
+		},
+	})
+end
+-- }}}
+
 -- {{{ lualine
 function config.lualine.config()
 	local ppp = require("lush_theme.ppp")
@@ -790,11 +817,11 @@ function config.lualine.config()
 
 	local options = vim.tbl_deep_extend("keep", {}, default_options)
 
-	require('lualine').setup {
+	require "lualine".setup {
 		options = {
 			icons_enabled = true,
-			component_separators = { left = '', right = ''},
-			section_separators = { left = '', right = ''},
+			component_separators = { left = '', right = '' },
+			section_separators = { left = '', right = '' },
 			disabled_filetypes = {
 				statusline = { "alpha" },
 				winbar = { "alpha", "edgy", "toggleterm", "Trouble", "spectre_panel", "qf", "noice", "dbui" },
@@ -825,39 +852,8 @@ function config.lualine.config()
 			"trouble",
 		},
 		sections = {
+			-- Folder + File
 			lualine_a = {
-				{
-					function()
-						return ' '
-					end,
-					color = function() -- Current mode
-						local mode_color = {
-							n = mode_colors.normal,
-							i = mode_colors.insert,
-							v = mode_colors.visual,
-							[""] = mode_colors.visual,
-							V = mode_colors.visual,
-							c = colors.purple,
-							no = colors.red,
-							s = colors.orange,
-							S = colors.orange,
-							[""] = colors.orange,
-							ic = colors.yellow,
-							R = colors.purple,
-							Rv = colors.purple,
-							cv = colors.red,
-							ce = colors.red,
-							r = colors.cyan,
-							rm = colors.cyan,
-							["r?"] = colors.cyan,
-							["!"] = colors.red,
-							t = colors.green,
-						}
-						return { fg = mode_color[vim.fn.mode()], bg = colors.bg }
-					end
-				}
-			},
-			lualine_b = {
 				{
 					function()
 						local dir = vim.fn.expand("%:p:h")
@@ -890,17 +886,45 @@ function config.lualine.config()
 					cond = conditions.buffer_not_empty,
 					colored = true,
 					color = function()
-						return { fg = "#FF00FF", gui='bold' }
+						return { fg = "#aF70bF", gui='bold' }
 					end,
 				},
 			},
-			lualine_c = {
+			-- Git
+			lualine_b = {
 				{
-					function()
-						return "%="
+					'b:gitsigns_head',
+					icon ='󰘬',
+					color = {
+						bg = colors.bg,
+						fg = "#2f74af",
+					}
+				},
+				{
+					'diff',
+					symbols = { added = " ", modified = " ", removed = " " },
+					diff_color = {
+						added = { fg = colors.green },
+						modified = { fg = colors.orange },
+						removed = { fg = colors.red },
+					},
+					source = function()
+						local gitsigns = vim.b.gitsigns_status_dict
+						if gitsigns then
+							return {
+								added = gitsigns.added,
+								modified = gitsigns.changed,
+								removed = gitsigns.removed,
+							}
+						end
 					end,
+					on_click = function()
+						vim.cmd("DiffviewOpen")
+					end,
+					color = { bg = colors.bg }
 				},
 			},
+			lualine_c = {},
 			lualine_x = {
 				{
 					function() return require("noice").api.status.command.get() end,
@@ -948,11 +972,11 @@ function config.lualine.config()
 				{
 					"fileformat",
 					symbols = {
-						unix = '󰌽', -- e712
+						unix = '', -- e712
 						dos = '󰍲',	-- e70f
 						mac = '',	-- e711
 					},
-					color = { fg = colors.purple, gui='bold' },
+					color = { fg = colors.orange, gui='bold' },
 				},
 				{
 					"encoding",
@@ -963,81 +987,29 @@ function config.lualine.config()
 			lualine_z = {
 				{
 					function()
-						return "󰕭 %-2v"
+						return "󰕭"
 					end,
 					color = { fg = colors.yellow, gui='bold' },
+				},
+				{
+					"location",
+				},
+				{
+					"selectioncount",
 				},
 			},
 		},
 		inactive_sections = {
 			lualine_a = {},
 			lualine_b = {},
-			lualine_c = {'filename'},
-			lualine_x = {'location'},
+			lualine_c = {},
+			lualine_x = {},
 			lualine_y = {},
 			lualine_z = {}
 		},
 		tabline = {},
-		winbar = {
-			lualine_a = {},
-			lualine_b = {},
-			lualine_c = {
-				{
-					function()
-						return "%="
-					end,
-				},
-			},
-			lualine_x = {},
-			lualine_y = {},
-			lualine_z = {
-				{
-					'b:gitsigns_head',
-					icon ='󰘬',
-					color = {
-						bg = colors.bg,
-						fg = colors.yellow,
-					}
-				},
-				{
-					'diff',
-					symbols = { added = " ", modified = "柳", removed = " " },
-					diff_color = {
-						added = { fg = colors.green },
-						modified = { fg = colors.orange },
-						removed = { fg = colors.red },
-					},
-					source = function()
-						local gitsigns = vim.b.gitsigns_status_dict
-						if gitsigns then
-							return {
-								added = gitsigns.added,
-								modified = gitsigns.changed,
-								removed = gitsigns.removed,
-							}
-						end
-					end,
-					on_click = function()
-						vim.cmd("DiffviewOpen")
-					end,
-					color = { bg = colors.bg }
-				},
-			}
-		},
-		inactive_winbar = {
-			lualine_a = {},
-			lualine_b = {},
-			lualine_c = {
-				{
-					function()
-						return "%="
-					end,
-				},
-			},
-			lualine_x = {},
-			lualine_y = {},
-			lualine_z = {}
-		},
+		winbar = {},
+		inactive_winbar = {},
 		extensions = {}
 	}
 end

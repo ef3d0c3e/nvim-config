@@ -12,9 +12,9 @@ return {
 	--},
 
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
-		init = require "plugins.configs.writing".ibl.init,
+	"shellRaining/hlchunk.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		config = require "plugins.configs.writing".hlchunk.config
 	},
 
 	{

@@ -31,7 +31,7 @@ return {
 		"andrew-george/telescope-themes",
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
-			require('telescope').load_extension('themes')
+			require("telescope").load_extension("themes")
 		end
 	},
 
@@ -66,14 +66,12 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = require "plugins.configs.ui".bufferline.config,
 	},
-	--{
-	--	"romgrk/barbar.nvim",
-	--	dependencies = {
-	--		"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
-	--		"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
-	--	},
-	--	init = require "plugins.configs.ui".barbar.init,
-	--},
+
+	{
+		"Bekaboo/dropbar.nvim",
+		dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
+		config = require "plugins.configs.ui".dropbar.config,
+	},
 
 	{ -- Colored cursorline
 		"mvllow/modes.nvim",
@@ -96,7 +94,7 @@ return {
 	},
 
 	{
-		"https://github.com/folke/noice.nvim",
+		"folke/noice.nvim",
 		opts = require "plugins.configs.ui".noice,
 		dependencies = {
 			"MunifTanjim/nui.nvim",

@@ -1,7 +1,64 @@
 local config = {
-	cmp = {
-	},
+	lspkind = {},
+	cmp = {},
 }
+
+function config.lspkind.config()
+	require('lspkind').init({
+		-- DEPRECATED (use mode instead): enables text annotations
+		--
+		-- default: true
+		-- with_text = true,
+
+		-- defines how annotations are shown
+		-- default: symbol
+		-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+		mode = 'symbol_text',
+
+		-- default symbol map
+		-- can be either 'default' (requires nerd-fonts font) or
+		-- 'codicons' for codicon preset (requires vscode-codicons font)
+		--
+		-- default: 'default'
+		preset = 'default',
+
+		-- override preset symbols
+		--
+		-- default: {}
+		symbol_map = {
+			Text = "󰉿",
+			Method = "󰆧",
+			Function = "󰊕",
+			Constructor = "",
+			Field = "󰜢",
+			Variable = "󰀫",
+			Class = "󰠱",
+			Interface = "",
+			Module = "",
+			Property = "󰜢",
+			Unit = "󰑭",
+			Value = "󰎠",
+			Enum = "",
+			Keyword = "󰌋",
+			Snippet = "",
+			Color = "󰏘",
+			File = "󰈙",
+			Reference = "󰈇",
+			Folder = "󰉋",
+			EnumMember = "",
+			Constant = "󰏿",
+			Struct = "󰙅",
+			Event = "",
+			Operator = "󰆕",
+			Type = ' ',
+			TypeParameter = '󰆩 ',
+			VariableBuiltin = '󰫧 ',
+			KeywordOperator = ' ',
+			VariableMember = '󱃻 ',
+			Comment = ' ',
+		},
+	})
+end
 
 function config.cmp.config()
 	local cmp = require("cmp")
@@ -20,10 +77,10 @@ function config.cmp.config()
 			completion = cmp.config.window.bordered {
 				col_offset = -2,
 				side_padding = 0,
-				border = "rounded",
+				border = "none",
 			},
 			documentation = cmp.config.window.bordered {
-				border = "rounded",
+				border = "none",
 			},
 		},
 		formatting = {

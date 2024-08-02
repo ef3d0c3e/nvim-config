@@ -1,6 +1,11 @@
 return {
 
 	{
+		"onsails/lspkind.nvim",
+		config = require "plugins.configs.cmp".lspkind.config,
+	},
+
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"neovim/nvim-lspconfig",
@@ -8,7 +13,6 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
-			"onsails/lspkind.nvim",
 			"ray-x/cmp-treesitter",
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"paopaol/cmp-doxygen",
