@@ -19,4 +19,16 @@ return {
 		},
 		config = require "plugins.configs.cmp".cmp.config,
 	},
+
+	{
+		"chrisgrieser/nvim-lsp-endhints",
+		event = "LspAttach",
+		config = require "plugins.configs.cmp".endhints.config,
+	},
+	---- Sets display location of inlay hints
+	--{
+	--	"felpafel/inlay-hint.nvim",
+	--	event = "LspAttach",
+	--	config = true,
+	--},
 }

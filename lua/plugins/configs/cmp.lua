@@ -1,6 +1,7 @@
 local config = {
 	lspkind = {},
 	cmp = {},
+	endhints = {},
 }
 
 function config.lspkind.config()
@@ -29,6 +30,7 @@ function config.lspkind.config()
 			Text = "󰉿",
 			Method = "󰆧",
 			Function = "󰊕",
+			KeywordFunction = "󰊕",
 			Constructor = "",
 			Field = "󰜢",
 			Variable = "󰀫",
@@ -47,6 +49,7 @@ function config.lspkind.config()
 			Folder = "󰉋",
 			EnumMember = "",
 			Constant = "󰏿",
+			Boolean = ' ',
 			Struct = "󰙅",
 			Event = "",
 			Operator = "󰆕",
@@ -56,6 +59,19 @@ function config.lspkind.config()
 			KeywordOperator = ' ',
 			VariableMember = '󱃻 ',
 			Comment = ' ',
+			String = ' ',
+			StringEscape = '󱊷 ',
+			Character = '󰾹',
+			Number = '',
+			KeywordType = '',
+			FunctionMacro = '󰡱',
+			VariableParameter = ' ',
+			KeywordConditional = '󰦐 ',
+			KeywordModifier = ' ',
+			KeywordImport = '󰋺 ',
+			TypeBuiltin = '',
+			KeywordRepeat = '󰑖',
+			KeywordReturn = '󰌑',
 		},
 	})
 end
@@ -89,7 +105,12 @@ function config.cmp.config()
 				local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 24 })(entry, vim_item)
 				local strings = vim.split(kind.kind, "%s", { trimempty = true })
 				kind.kind = " " .. (strings[1] or "") .. " "
-				kind.menu = " (" .. (strings[2] or "") .. ")"
+				if strings[2] ~= "" then
+					kind.menu = " (" .. (strings[2] or "") .. ")"
+				else
+					kind.menu = ""
+				end
+
 
 				return kind
 			end,
@@ -145,6 +166,23 @@ function config.cmp.config()
 			{ name = "dap" },
 		},
 	})
+end
+
+function config.endhints.config()
+	require("lsp-endhints").setup {
+		icons = {
+			type = "󰜁 ",
+			parameter = "󰏪 ",
+			offspec = " ", -- hint kind not defined in official LSP spec
+			unknown = " ", -- hint kind is nil
+		},
+		label = {
+			padding = 1,
+			marginLeft = 0,
+			bracketedParameters = true,
+		},
+		autoEnableHints = true,
+	}
 end
 
 return config
