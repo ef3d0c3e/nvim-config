@@ -113,12 +113,6 @@ return {
 		config = require "plugins.configs.ui".toggleterm.config,
 	},
 
-	{
-		"folke/edgy.nvim",
-		event = "VeryLazy",
-		config = require "plugins.configs.ui".edgy.config,
-	},
-
 	-- Customize number column
 	{
 		"luukvbaal/statuscol.nvim",

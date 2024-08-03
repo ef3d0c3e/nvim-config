@@ -94,9 +94,11 @@ function config.cmp.config()
 				col_offset = -2,
 				side_padding = 0,
 				border = "none",
+				winhighlight = "NormalFloat:TelescopeNormal,FloatBorder:TelescopeBorder",
 			},
 			documentation = cmp.config.window.bordered {
 				border = "none",
+				winhighlight = "NormalFloat:TelescopeNormal,FloatBorder:TelescopeBorder",
 			},
 		},
 		formatting = {
