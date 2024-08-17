@@ -16,12 +16,6 @@ return {
 	},
 
 	{
-		"3rd/image.nvim",
-		dependencies = { "luarocks.nvim" },
-		opts = require "plugins.configs.ui".image,
-	},
-
-	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		init = require "plugins.configs.ui".telescope.init,

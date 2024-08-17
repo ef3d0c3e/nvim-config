@@ -3,9 +3,9 @@ local config = {
 
 	surround = {},
 
-	autopairs = {},
-
 	autotag = {},
+
+	ultimate_autopair = {},
 }
 
 -- {{{ rainbow-delimiters
@@ -109,20 +109,6 @@ function config.hlchunk.config()
 end
 -- }}}
 
--- {{{ autopairs
-function config.autopairs.config()
-	require("nvim-autopairs").setup({})
-
-	-- Cmp compatibility
-	local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-	local cmp = require('cmp')
-	cmp.event:on(
-		'confirm_done',
-		cmp_autopairs.on_confirm_done()
-	)
-end
--- }}}
-
 -- {{{ autotags
 function config.autotag.config()
 	vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
@@ -137,6 +123,12 @@ function config.autotag.config()
     })
 
 	require("nvim-ts-autotag").setup({})
+end
+-- }}}
+
+-- {{{ ultimate_autopair
+function config.ultimate_autopair.config()
+	require("ultimate-autopair").setup({})
 end
 -- }}}
 

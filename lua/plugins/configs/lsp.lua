@@ -101,8 +101,14 @@ function config.lspconfig.config()
 	}
 
 	lspconfig.rust_analyzer.setup {
+		cmd = { "rust-analyzer" },
+		filetypes = { "rust" },
 		settings = {
-			['rust-analyzer'] = {},
+			['rust-analyzer'] = {
+				procMacro = {
+					enable = false,
+				},
+			},
 		},
 	}
 end
@@ -149,9 +155,9 @@ function config.fidget.config()
 				function(msg) return msg.title end,
 			format_group_name =				 -- How to format a progress notification group's name
 				function(group) return tostring(group) end,
-			overrides = {							 -- Override options from the default notification config
-				rust_analyzer = { name = "rust-analyzer" },
-			},
+			--overrides = {							 -- Override options from the default notification config
+			--	rust_analyzer = { name = "rust-analyzer" },
+			--},
 		},
 
 		-- Options related to Neovim's built-in LSP client

@@ -9,42 +9,6 @@ local mode_colors = {
 }
 
 local config = {
-	-- {{{ image
-	image = {
-		backend = "ueberzug",
-		integrations = {
-			markdown = {
-				enabled = true,
-				clear_in_insert_mode = false,
-				download_remote_images = true,
-				only_render_image_at_cursor = false,
-				filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
-			},
-			neorg = {
-				enabled = true,
-				clear_in_insert_mode = false,
-				download_remote_images = true,
-				only_render_image_at_cursor = false,
-				filetypes = { "norg" },
-			},
-			html = {
-				enabled = false,
-			},
-			css = {
-				enabled = false,
-			},
-		},
-		max_width = nil,
-		max_height = nil,
-		max_width_window_percentage = nil,
-		max_height_window_percentage = 50,
-		window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
-		window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-		editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-		tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-		hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
-	}, -- }}}
-
 	-- {{{ which-key
 	which_key = {
 		preset = "modern",
@@ -359,10 +323,10 @@ end
 
 -- {{{ neo-tree
 function config.neo_tree.init()
-	require("window-picker").setup()
+	--require("window-picker").setup()
 
 	require("neo-tree").setup({
-		open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
+		open_files_do_not_replace_types = { "terminal", "Trouble", "qf" },
 		close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
 		enable_git_status = true,
 		enable_diagnostics = true,
@@ -372,12 +336,6 @@ function config.neo_tree.init()
 				{ source = "git_status" },
 				{ source = "buffers" },
 				{ source = "document_symbols" },
-			},
-		},
-		window = {
-			mappings = {
-				["e"] = nil, -- disable auto expand; it doesn't work with edgy
-				["<tab>"] = "toggle_node",
 			},
 		},
 		document_symbols = {
@@ -426,7 +384,7 @@ function config.neo_tree.init()
 				highlight = "NeoTreeFileIcon",
 			},
 			modified = {
-				symbol = "[+]",
+				symbol = " ",
 				highlight = "NeoTreeModified",
 			},
 			name = {
@@ -452,8 +410,8 @@ function config.neo_tree.init()
 			},
 		},
 		window = {
-			position = "left",
-			width = 50,
+			position = "float",
+			width = 40,
 			mapping_options = {
 				noremap = true,
 				nowait = true,
@@ -642,7 +600,7 @@ function config.bufferline.config()
         options = {
             mode = "buffers", -- set to "tabs" to only show tabpages instead
             style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
-            themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
+            themable = false, -- allows highlight groups to be overriden i.e. sets highlights as default
             numbers = "none",
             close_command = "bdelete! %d",       -- can be a string | function, | false see "Mouse actions"
             right_mouse_command = "bdelete! %d", -- can be a string | function | false, see "Mouse actions"
@@ -680,23 +638,24 @@ function config.bufferline.config()
             end,
             -- NOTE: this will be called a lot so don't do any heavy processing here
             custom_filter = function(buf_number, buf_numbers)
-                -- filter out filetypes you don't want to see
-                if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
-                    return true
-                end
-                -- filter out by buffer name
-                if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-                    return true
-                end
-                -- filter out based on arbitrary rules
-                -- e.g. filter out vim wiki buffer from tabline in your work repo
-                if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-                    return true
-                end
-                -- filter out by it's index number in list (don't show first buffer)
-                if buf_numbers[1] ~= buf_number then
-                    return true
-                end
+				return true
+                ---- filter out filetypes you don't want to see
+                --if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
+                --    return true
+                --end
+                ---- filter out by buffer name
+                --if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
+                --    return true
+                --end
+                ---- filter out based on arbitrary rules
+                ---- e.g. filter out vim wiki buffer from tabline in your work repo
+                --if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
+                --    return true
+                --end
+                ---- filter out by it's index number in list (don't show first buffer)
+                --if buf_numbers[1] ~= buf_number then
+                ----    return true
+                --end
             end,
             color_icons = true,
             get_element_icon = function(element)
@@ -710,20 +669,20 @@ function config.bufferline.config()
             show_buffer_icons = true,
             show_buffer_close_icons = true,
             show_close_icon = true,
-            show_tab_indicators = true,
+            show_tab_indicators = false,
             show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
             duplicates_across_groups = true, -- whether to consider duplicate paths in different groups as duplicates
             persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-            move_wraps_at_ends = false, -- whether or not the move command "wraps" at the first or last position
+            move_wraps_at_ends = true, -- whether or not the move command "wraps" at the first or last position
             -- can also be a table containing 2 custom separators
             -- [focused and unfocused]. eg: { '|', '|' }
-            separator_style = 'slant',
+            separator_style = 'thick',
 			--"slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
             enforce_regular_tabs = true,
             always_show_bufferline = true,
             auto_toggle_bufferline = true,
             hover = {
-                enabled = true,
+                enabled = false,
                 delay = 200,
                 reveal = {'close'}
             },
@@ -731,7 +690,15 @@ function config.bufferline.config()
             --    -- add custom logic
             --    return buffer_a.modified > buffer_b.modified
             --end
-        }
+        },
+		highlights = {
+			indicator_selected = {
+				fg = {
+					attribute = 'fg',
+					highlight = 'Namespace'
+				},
+			},
+		},
     })
 end
 -- }}}
@@ -822,7 +789,7 @@ function config.lualine.config()
 			section_separators = { left = '', right = '' },
 			disabled_filetypes = {
 				statusline = { "alpha" },
-				winbar = { "alpha", "edgy", "toggleterm", "Trouble", "spectre_panel", "qf", "noice", "dbui" },
+				winbar = { "alpha", "toggleterm", "Trouble", "spectre_panel", "qf", "noice", "dbui" },
 			},
 			ignore_focus = {},
 			always_divide_middle = true,
@@ -1048,7 +1015,7 @@ function config.toggleterm.config()
 		shading_factor = 0.1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
 		start_in_insert = true,
 		persist_size = true,
-		direction = "vertical",
+		direction = "horizontal",
 		close_on_exit = true,
 		float_opts = {
 			border = { "┏", "━", "┓", "┃", "┛","━", "┗", "┃" },
