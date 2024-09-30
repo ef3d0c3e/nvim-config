@@ -49,12 +49,20 @@ return {
 	{
 		"jinzhongjia/LspUI.nvim",
 		branch = "main",
-		opts = {},
+		config = require "plugins.configs.lsp".lspui.config,
 	},
 
 	-- Auto setup lua_ls for neovim plugin developpement (also a requirement of nvim-dap-ui)
 	{
 		"folke/neodev.nvim",
 		config = require "plugins.configs.lsp".neodev.config,
+	},
+
+	-- Ltex-ls integration
+	{
+		"barreiroleo/ltex_extra.nvim",
+		ft = { "markdown", "tex" },
+		dependencies = { "neovim/nvim-lspconfig" },
+		config = require "plugins.configs.lsp".ltex.config,
 	},
 }

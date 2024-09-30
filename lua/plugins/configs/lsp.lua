@@ -3,17 +3,29 @@ local config = {
 	ccls = {},
 	fidget = {},
 	actions_preview = {},
+	lspui = {},
 	neodev = {},
+	ltex = {},
 }
 
 local ccls_filetypes = { "c", "cpp", "objc", "objcpp", "opencl" }
 
+function get_capabilities()
+	local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities.textDocument.foldingRange = {
+		dynamicRegistration = false,
+		lineFoldingOnly = true
+	}
+
+	return capabilities
+end
 
 -- {{{ lspconfig
 function config.lspconfig.config()
 	-- Setup Mason
 	require("mason").setup({
-		ensure_installed = { "lua_ls", "html" },
+		ensure_installed = { "lua_ls", "ltex-ls", "html" },
 	})
 	require("mason-lspconfig").setup()
 
@@ -26,15 +38,10 @@ function config.lspconfig.config()
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 	end
 
-	local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.foldingRange = {
-		dynamicRegistration = false,
-		lineFoldingOnly = true
-	}
+	local capabilities = get_capabilities()
 
 	-- Servers using default config
-	local servers = { "html", "cssls", "tsserver", "pylsp", "glslls", "clangd" }
+	local servers = { "pylsp", "glslls", "clangd" }
 	for _, lsp in ipairs(servers) do
 		lspconfig[lsp].setup({
 			capabilities = capabilities
@@ -262,11 +269,44 @@ function config.actions_preview.config()
 end
 -- }}}
 
+-- {{{ LspUI
+function config.lspui.config()
+	require("LspUI").setup {}
+	local lsp_ui_config = require("LspUI.config")
+
+	lsp_ui_config.lightbulb_setup({
+		enable = false
+	})
+end
+-- }}}
+
 -- {{{ neodev
 function config.neodev.config()
 	require("neodev").setup({
 		library = { plugins = { "nvim-dap-ui" }, types = true },
 	})
+end
+-- }}}
+
+-- {{{ ltex
+function config.ltex.config()
+	require("lspconfig").ltex.setup {
+		capabilities = get_capabilities(),
+		-- on_attach = function(client, bufnr)
+		on_attach = function()
+			require("ltex_extra").setup {
+				load_langs = { "en-US" }, -- table <string> : languages for witch dictionaries will be loaded
+				init_check = true,              -- boolean : whether to load dictionaries on startup
+				path = nil,                     -- string : path to store dictionaries. Relative path uses current working directory
+				log_level = "none",             -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
+		}
+		end,
+		settings = {
+			ltex = {
+				language = "auto",
+			}
+		}
+	}
 end
 -- }}}
 

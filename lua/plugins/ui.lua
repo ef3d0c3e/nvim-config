@@ -43,13 +43,6 @@ return {
 	},
 
 	{
-		"mrjones2014/legendary.nvim",
-		priority = 10000,
-		lazy = false,
-		opts = require "plugins.configs.ui".legendary,
-	},
-
-	{
 		"nvim-neo-tree/neo-tree.nvim",
 		dependencies = { "s1n7ax/nvim-window-picker" },
 		config = require "plugins.configs.ui".neo_tree.config,

@@ -127,3 +127,11 @@ opt.foldmethod = "marker"
 opt.foldlevelstart = 0
 opt.foldenable = true
 
+vim.api.nvim_create_autocmd("TermOpen", {
+	desc = "Custom terminal",
+	callback = function(args)
+		vim.opt_local.number = false
+		vim.opt_local.relativenumber = false
+		vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<c-\\><c-n><Cr>", {})
+	end
+})

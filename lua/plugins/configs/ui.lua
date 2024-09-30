@@ -31,16 +31,7 @@ local config = {
 		},
 	}, -- }}}
 
-	-- {{{ legendary
-	legendary = {
-		extensions = {
-			lazy_nvim = true,
-			which_key = {
-				auto_register = true,
-			},
-			diffview = true,
-		},
-	}, -- }}}
+	stickybuf = {},
 
 	telescope = {},
 
@@ -1019,7 +1010,7 @@ function config.toggleterm.config()
 		close_on_exit = true,
 		float_opts = {
 			border = { "┏", "━", "┓", "┃", "┛","━", "┗", "┃" },
-		}
+		},
 	})
 end
 -- }}}

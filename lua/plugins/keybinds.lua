@@ -3,6 +3,7 @@ local wk = require("which-key")
 wk.add({
 	{ "<leader>e", "<cmd>Legendary<cr>", desc = "Run Action", mode = "n"},
 	{ "<leader>x", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal", mode = "n"},
+	{ "<leader>t", "<cmd>term<cr>i", desc = "Open Terminal", mode = "n"},
 	{ "<leader>T", "<cmd>Telescope<cr>", desc = "Telescope", mode = "n" },
 	{ "<leader>b", group = "buffers", expand = function() return require("which-key.extras").expand.buf() end },
 
@@ -54,6 +55,8 @@ wk.add({
 wk.add({
 	{ "gt", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
 	{ "gT", "<cmd>BufferLineCyclePrev<cr>", desc = "Previous buffer" },
+	{ "gy", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer +1" },
+	{ "gY", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer -1" },
 })
 
 -- Other LSP bindings
