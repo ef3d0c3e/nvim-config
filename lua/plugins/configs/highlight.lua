@@ -31,7 +31,7 @@ local config = {
 }
 
 function config.treesitter.config()
-	require("nvim-dap-repl-highlights").setup() -- Required to be set up before treesitter
+	--require("nvim-dap-repl-highlights").setup() -- Required to be set up before treesitter
 	require("nvim-treesitter").setup({
 		ensure_installed = {
 			"lua",

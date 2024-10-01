@@ -84,4 +84,9 @@ return {
 		branch = "v0.6", --recommended as each new version will have breaking changes
 		config = require "plugins.configs.writing".ultimate_autopair.config,
 	},
+
+	-- Preview markdown in browser
+	{
+		"https://github.com/iamcco/markdown-preview.nvim",
+	},
 }

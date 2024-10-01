@@ -34,6 +34,7 @@ opt.re = 0
 -- Numbers
 opt.number = true
 opt.relativenumber = true
+opt.numberwidth = 1
 
 -- Disable netrw
 vim.g.loaded_netrw = 1
@@ -44,7 +45,7 @@ vim.g.loaded_netrwPlugin = 1
 opt.shortmess:append "sI"
 
 -- Ui
-opt.signcolumn = 'yes:1' -- Adds padding
+--opt.signcolumn = 'yes:1' -- Adds padding
 opt.splitbelow = true
 opt.splitright = true
 opt.showmode = false

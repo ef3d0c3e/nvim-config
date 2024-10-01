@@ -271,7 +271,7 @@ end
 
 -- {{{ LspUI
 function config.lspui.config()
-	require("LspUI").setup {}
+	require("LspUI").setup()
 	local lsp_ui_config = require("LspUI.config")
 
 	lsp_ui_config.lightbulb_setup({

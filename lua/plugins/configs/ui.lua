@@ -213,7 +213,7 @@ local config = {
 		colors = mode_colors,
 
 		-- Set opacity for cursorline and number background
-		line_opacity = 0.15,
+		line_opacity = 0.30,
 
 		-- Enable cursor highlights
 		set_cursor = true,
@@ -308,7 +308,7 @@ function config.telescope.init()
 	
 	-- Extensions
 	telescope.load_extension('notify')
-	telescope.load_extension('dap')
+	--telescope.load_extension('dap')
 end
 -- }}}
 

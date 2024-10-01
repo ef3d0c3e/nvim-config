@@ -1,5 +1,4 @@
 return {
-
 	{
 		"onsails/lspkind.nvim",
 		config = require "plugins.configs.cmp".lspkind.config,
