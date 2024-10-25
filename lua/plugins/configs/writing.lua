@@ -69,9 +69,6 @@ function config.hlchunk.config()
 			enable = true,
 			chars = {
 				"│",
-				"¦",
-				"┆",
-				"┊",
 			},
 			style = { vim.api.nvim_get_hl(0, { name = "Whitespace" }) },
 			use_treesitter = true,
@@ -82,7 +79,7 @@ function config.hlchunk.config()
 			enable = true,
 			priority = 15,
 			style = {
-				{ fg = "#806d9c" },
+				{ fg = "#80fd9c" },
 				{ fg = "#c21f30" },
 			},
 			use_treesitter = true,

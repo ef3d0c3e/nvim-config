@@ -111,9 +111,16 @@ function config.lspconfig.config()
 		cmd = { "rust-analyzer" },
 		filetypes = { "rust" },
 		settings = {
-			['rust-analyzer'] = {
+			["rust-analyzer"] = {
+				diagnostics = {
+					enable = true,
+					disabled = {"unresolved-proc-macro"},
+					enableExperimental = true,
+				},
 				procMacro = {
-					enable = false,
+					ignored = {
+						["auto_registry"] = {"auto_registry"}
+					},
 				},
 			},
 		},

@@ -11,7 +11,7 @@ return {
 			lsp_zero.new_client({
 				name = 'nmlls',
 				cmd = {'/home/baraquiel/Programming/nml_rs/target/debug/nmlls'},
-				filetypes = {'markdown'},
+				filetypes = {'nml'},
 				root_dir = function()
 					return lsp_zero.dir.find_first({'readme.nml'})
 				end
@@ -58,10 +58,10 @@ return {
 	},
 
 	-- Ltex-ls integration
-	{
-		"barreiroleo/ltex_extra.nvim",
-		ft = { "markdown", "tex" },
-		dependencies = { "neovim/nvim-lspconfig" },
-		config = require "plugins.configs.lsp".ltex.config,
-	},
+	--{
+	--	"barreiroleo/ltex_extra.nvim",
+	--	ft = { "markdown", "tex" },
+	--	dependencies = { "neovim/nvim-lspconfig" },
+	--	config = require "plugins.configs.lsp".ltex.config,
+	--},
 }
