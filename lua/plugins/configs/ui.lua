@@ -697,7 +697,7 @@ end
 -- {{{ dropbar
 function config.dropbar.config()
 	require "dropbar".setup({
-		general = {
+		bar = {
 			enable = function(buf, win, _)
 				return vim.api.nvim_buf_is_valid(buf)
 				and vim.api.nvim_win_is_valid(win)
@@ -712,8 +712,6 @@ function config.dropbar.config()
 				'BufWinEnter',
 				'BufWritePost',
 			},
-		},
-		bar = {
 		},
 	})
 end
