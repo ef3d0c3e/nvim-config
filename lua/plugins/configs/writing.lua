@@ -114,7 +114,6 @@ function config.autotag.config()
         underline = true,
         virtual_text = {
             spacing = 5,
-            severity_limit = 'Warning',
         },
         update_in_insert = true,
     })
