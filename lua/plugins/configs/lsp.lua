@@ -50,7 +50,7 @@ function config.lspconfig.config()
 
 	lspconfig.lua_ls.setup
 	{
-		cmd = { os.getenv("HOME") .. "/.dot/opt/lua-language-server/bin/lua-language-server" },
+		cmd = { os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server" },
 		settings =
 		{
 			Lua =
@@ -278,12 +278,13 @@ end
 
 -- {{{ LspUI
 function config.lspui.config()
-	require("LspUI").setup()
+	local lspui = require("LspUI").setup()
 	local lsp_ui_config = require("LspUI.config")
 
-	lsp_ui_config.lightbulb_setup({
+	local lightbulb_config = {
 		enable = false
-	})
+	}
+	lsp_ui_config.options.lightbulb = lightbulb_config
 end
 -- }}}
 
