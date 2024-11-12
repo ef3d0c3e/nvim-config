@@ -39,20 +39,6 @@ return {
 	},
 
 	{
-		"nvim-colortils/colortils.nvim",
-		cmd = "Colortils",
-		config = function()
-			require("colortils").setup()
-		end,
-	},
-
-	--{
-	--	"windwp/nvim-autopairs",
-	--	event = "InsertEnter",
-	--	config = require "plugins.configs.writing".autopairs.config,
-	--},
-
-	{
 		"L3MON4D3/LuaSnip",
 		-- follow latest release.
 		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)

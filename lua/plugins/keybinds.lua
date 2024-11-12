@@ -1,11 +1,11 @@
 local wk = require("which-key")
 
 wk.add({
-	{ "<leader>e", "<cmd>Legendary<cr>", desc = "Run Action", mode = "n"},
 	{ "<leader>x", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal", mode = "n"},
 	{ "<leader>t", "<cmd>term<cr>i", desc = "Open Terminal", mode = "n"},
 	{ "<leader>T", "<cmd>Telescope<cr>", desc = "Telescope", mode = "n" },
 	{ "<leader>b", group = "buffers", expand = function() return require("which-key.extras").expand.buf() end },
+	{ "<leader>d", "<cmd>Telescope man_pages<cr>", desc = "Open Manual", mode = "n" },
 
 	-- Finder
 	{ "<leader>f", group = "Finder" },
@@ -33,13 +33,6 @@ wk.add({
 	{ "<leader>li", "<cmd>Telescope lsp_implementations<cr>", desc = "Show implementation", mode="n" },
 	{ "<leader>ls", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "List workspace symbols", mode="n" },
 	{ "<leader>lo", "<cmd>Lspsaga outline<cr>", desc = "Toggle outline", mode="n" },
-
-	-- Visuals
-	{ "<leader>v", group = "Visuals" },
-	{ "<leader>vg", "<cmd>lua require(\"plugins.configs.writing\").ibl.toggle()<cr>", desc = "Toggle indent guides", mode="n" },
-	{ "<leader>vr", "<cmd>lua require(\"plugins.configs.writing\").ibl.toggle_rainbow()<cr>", desc = "Toggle rainbow indent guides", mode="n" },
-	{ "<leader>vR", "<cmd>lua require(\"plugins.configs.writing\").rainbow.toggle()<cr>", desc = "Toggle rainbow delimiters", mode="n" },
-	{ "<leader>vC", "<cmd>Colortils<cr>", desc = "Toggle color code highlighting", mode="n" },
 })
 
 -- Other
@@ -61,10 +54,14 @@ wk.add({
 
 -- Other LSP bindings
 wk.add({
-	{ "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Show defitinions", mode="n"},
-	{ "gD", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Show type defitinions", mode="n"},
-	{ "gr", "<cmd>Telescope lsp_references<cr>", desc = "Show references", mode="n"},
-	{ "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Show implementations", mode="n"},
+	{ "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Defitinions", mode="n"},
+	{ "gD", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type Defitinions", mode="n"},
+	{ "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", mode="n"},
+	{ "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations", mode="n"},
+	{ "gI", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "Incomind Calls", mode="n"},
+	{ "gO", "<cmd>Telescope lsp_outgoing_calls<cr>", desc = "Outgoing Calls", mode="n"},
+	{ "gs", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace Symbols", mode="n"},
 	{ "gf", "<cmd>lua require(\"actions-preview\").code_actions()<cr>", desc = "Code action", mode="n"},
-	{ "gR", "<cmd>LspUI rename<cr>", desc = "Rename under cursor", mode="n"},
+	{ "gh", "<cmd>LspUI hover<cr>", desc = "Hover Symbol", mode="n"},
+	{ "gR", "<cmd>LspUI rename<cr>", desc = "Rename", mode="n"},
 })

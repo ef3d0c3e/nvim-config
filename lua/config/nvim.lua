@@ -127,7 +127,7 @@ vim.diagnostic.config({
 opt.autowrite = true -- Enable auto write
 opt.foldnestmax = 4
 opt.foldlevel = 1
-opt.foldcolumn = "1"
+opt.foldcolumn = "auto"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 --opt.foldmethod = "expr"
 opt.foldmethod = "marker"
