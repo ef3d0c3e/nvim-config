@@ -97,13 +97,13 @@ vim.opt.fillchars = {
 	foldsep = " ",
 	diff = "╱",
 	eob = " ",
-	horiz     = '━',
-	horizup   = '┻',
-	horizdown = '┳',
-	vert      = '┃',
-	vertleft  = '┫',
-	vertright = '┣',
-	verthoriz = '╋',
+	horiz     = '─',
+	horizup   = '┴',
+	horizdown = '┬',
+	vert      = '│',
+	vertleft  = '┤',
+	vertright = '├',
+	verthoriz = '┼',
 }
 
 vim.diagnostic.config({

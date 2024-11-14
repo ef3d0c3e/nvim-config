@@ -1,7 +1,7 @@
 local wk = require("which-key")
 
 wk.add({
-	{ "<leader>x", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal", mode = "n"},
+	{ "<leader>x", "<cmd>bo term<cr>", desc = "Toggle Terminal", mode = "n"},
 	{ "<leader>t", "<cmd>term<cr>i", desc = "Open Terminal", mode = "n"},
 	{ "<leader>T", "<cmd>Telescope<cr>", desc = "Telescope", mode = "n" },
 	{ "<leader>b", group = "buffers", expand = function() return require("which-key.extras").expand.buf() end },
@@ -64,4 +64,38 @@ wk.add({
 	{ "gf", "<cmd>lua require(\"actions-preview\").code_actions()<cr>", desc = "Code action", mode="n"},
 	{ "gh", "<cmd>LspUI hover<cr>", desc = "Hover Symbol", mode="n"},
 	{ "gR", "<cmd>LspUI rename<cr>", desc = "Rename", mode="n"},
+})
+
+wk.add({
+	{ "<A>", group = "Splits" },
+
+	-- Move
+	{ "<A-h>", "<cmd>lua require('smart-splits').move_cursor_left()<cr>", desc = "Move Left", mode = "ni"},
+	{ "<A-left>", "<cmd>lua require('smart-splits').move_cursor_left()<cr>", desc = "Move Left", mode = "ni"},
+	{ "<A-j>", "<cmd>lua require('smart-splits').move_cursor_up()<cr>", desc = "Move Up", mode = "ni"},
+	{ "<A-up>", "<cmd>lua require('smart-splits').move_cursor_up()<cr>", desc = "Move Up", mode = "ni"},
+	{ "<A-k>", "<cmd>lua require('smart-splits').move_cursor_right()<cr>", desc = "Move Right", mode = "ni"},
+	{ "<A-right>", "<cmd>lua require('smart-splits').move_cursor_right()<cr>", desc = "Move Right", mode = "ni"},
+	{ "<A-l>", "<cmd>lua require('smart-splits').move_cursor_down()<cr>", desc = "Move Down", mode = "ni"},
+	{ "<A-down>", "<cmd>lua require('smart-splits').move_cursor_down()<cr>", desc = "Move Down", mode = "ni"},
+
+	-- Resize
+	{ "<A-H>", "<cmd>lua require('smart-splits').resize_left()<cr>", desc = "Resize Left", mode = "ni"},
+	{ "<A-S-left>", "<cmd>lua require('smart-splits').resize_left()<cr>", desc = "Resize Left", mode = "ni"},
+	{ "<A-J>", "<cmd>lua require('smart-splits').resize_up()<cr>", desc = "Resize Up", mode = "ni"},
+	{ "<A-S-up>", "<cmd>lua require('smart-splits').resize_up()<cr>", desc = "Resize Up", mode = "ni"},
+	{ "<A-K>", "<cmd>lua require('smart-splits').resize_right()<cr>", desc = "Resize Right", mode = "ni"},
+	{ "<A-S-right>", "<cmd>lua require('smart-splits').resize_right()<cr>", desc = "Resize Right", mode = "ni"},
+	{ "<A-L>", "<cmd>lua require('smart-splits').resize_down()<cr>", desc = "Resize Down", mode = "ni"},
+	{ "<A-S-down>", "<cmd>lua require('smart-splits').resize_down()<cr>", desc = "Resize Down", mode = "ni"},
+
+	-- Move
+	{ "<A-C-h>", "<cmd>lua require('smart-splits').swap_buf_left()<cr>", desc = "Swap Left", mode = "ni"},
+	{ "<A-C-left>", "<cmd>lua require('smart-splits').swap_buf_left()<cr>", desc = "Swap Left", mode = "ni"},
+	{ "<A-C-j>", "<cmd>lua require('smart-splits').swap_buf_up()<cr>", desc = "Swap Up", mode = "ni"},
+	{ "<A-C-up>", "<cmd>lua require('smart-splits').swap_buf_up()<cr>", desc = "Swap Up", mode = "ni"},
+	{ "<A-C-k>", "<cmd>lua require('smart-splits').swap_buf_right()<cr>", desc = "Swap Right", mode = "ni"},
+	{ "<A-C-right>", "<cmd>lua require('smart-splits').swap_buf_right()<cr>", desc = "Swap Right", mode = "ni"},
+	{ "<A-C-l>", "<cmd>lua require('smart-splits').swap_buf_down()<cr>", desc = "Swap Down", mode = "ni"},
+	{ "<A-C-down>", "<cmd>lua require('smart-splits').swap_buf_down()<cr>", desc = "Swap Down", mode = "ni"},
 })

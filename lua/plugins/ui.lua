@@ -1,7 +1,7 @@
 return {
-	{
-		"nvim-lua/plenary.nvim",
-	},
+	--{
+	--	"nvim-lua/plenary.nvim",
+	--},
 
 	{
 		"nvim-tree/nvim-web-devicons",
@@ -64,7 +64,8 @@ return {
 		"mvllow/modes.nvim",
 		opts = require "plugins.configs.ui".modes,
 	},
-
+	
+	-- Statusline
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -95,21 +96,21 @@ return {
 		opts = {},
 	},
 
-	{
-		"akinsho/toggleterm.nvim",
-		config = require "plugins.configs.ui".toggleterm.config,
-	},
-
 	-- Customize number column
 	{
 		"luukvbaal/statuscol.nvim",
 		config = require "plugins.configs.ui".statuscol.config,
 	},
 
-	-- https://github.com/startup-nvim/startup.nvim/issues/51
-	-- Start menu
-	--{
-	--	"startup-nvim/startup.nvim",
-	--	config = require "plugins.configs.ui".startup.config,
-	--},
+	-- Split manager
+	{
+		"https://github.com/mrjones2014/smart-splits.nvim",
+		config = require "plugins.configs.ui".smart_splits.config,
+	},
+
+	-- Custom splits borders
+	{
+		"https://github.com/nvim-zh/colorful-winsep.nvim",
+		config = require "plugins.configs.ui".winsep.config,
+	},
 }
