@@ -278,13 +278,11 @@ end
 
 -- {{{ LspUI
 function config.lspui.config()
-	local lspui = require("LspUI").setup()
-	local lsp_ui_config = require("LspUI.config")
-
-	local lightbulb_config = {
-		enable = false
-	}
-	lsp_ui_config.options.lightbulb = lightbulb_config
+	local lspui = require("LspUI").setup({
+		lightbulb = {
+			enable = false
+		}
+	})
 end
 -- }}}
 

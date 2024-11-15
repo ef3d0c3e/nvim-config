@@ -156,10 +156,20 @@ function config.cmp.config()
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
 			{ name = "path" },
-			--{ name = "cmdline" },
 			{ name = "treesitter" },
 			{ name = "doxygen" },
-		}, { name = "buffer" })
+			{
+				name = "spell",
+				option = {
+					keep_all_entries = true,
+					enable_in_context = function()
+						return true
+					end,
+					preselect_correct_word = true,
+				}
+			},
+			{ name = "buffer" },
+		})
 	})
 
 	-- Set configuration for specific filetype.
@@ -173,10 +183,11 @@ function config.cmp.config()
 
 	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won"t work anymore).
 	cmp.setup.cmdline({ "/", "?" }, {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = {
-			{ name = "buffer" }
-		}
+		sources = cmp.config.sources({
+			{ name = 'nvim_lsp_document_symbol' }
+		}, {
+			{ name = 'buffer' }
+		})
 	})
 
 	-- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
