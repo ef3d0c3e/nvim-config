@@ -113,4 +113,10 @@ return {
 		"https://github.com/nvim-zh/colorful-winsep.nvim",
 		config = require "plugins.configs.ui".winsep.config,
 	},
+
+	{
+		"https://github.com/altermo/nwm",
+		branch = "x11",
+		config = require "plugins.configs.ui".nwm.config,
+	}
 }
