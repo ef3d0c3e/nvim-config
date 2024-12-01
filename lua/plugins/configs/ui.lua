@@ -232,7 +232,45 @@ local config = {
 
 	lualine = {},
 
-	noice = {},
+	noice = {
+		routes = {
+			{
+				filter = {
+					event = "msg_show",
+					find = "B written",
+				},
+				opts = { skip = true },
+			},
+			{
+				filter = {
+					event = "msg_show",
+					find = "more line",
+				},
+				opts = { skip = true },
+			},
+			{
+				filter = {
+					event = "msg_show",
+					find = "change; before",
+				},
+				opts = { skip = true },
+			},
+			{
+				filter = {
+					event = "msg_show",
+					find = "less; before",
+				},
+				opts = { skip = true },
+			},
+			{
+				filter = {
+					event = "msg_show",
+					find = "lines yanked",
+				},
+				opts = { skip = true },
+			},
+		},
+	},
 
 	toggleterm = {},
 
