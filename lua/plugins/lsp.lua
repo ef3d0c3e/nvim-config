@@ -1,25 +1,5 @@
 return {
 	{
-		"VonHeikemen/lsp-zero.nvim",
-		config = function()
-			local lsp_zero = require('lsp-zero')
-
-			lsp_zero.on_attach(function(client, bufnr)
-				lsp_zero.default_keymaps({buffer = bufnr})
-			end)
-
-			lsp_zero.new_client({
-				name = 'nmlls',
-				cmd = {'/home/baraquiel/Programming/nml_rs/target/debug/nmlls'},
-				filetypes = {'nml'},
-				root_dir = function()
-					return lsp_zero.dir.find_first({'readme.nml'})
-				end
-			})
-		end,
-	},
-
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
@@ -30,6 +10,10 @@ return {
 
 	{
 		"nvimtools/none-ls.nvim",
+	},
+
+	{
+		"ef3d0c3e/nml-nvim"
 	},
 
 	-- LSP indexing status
