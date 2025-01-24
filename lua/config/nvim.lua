@@ -15,11 +15,7 @@ opt.shiftwidth = 0 -- 0 To use opt.tabstop
 opt.softtabstop = 0 -- 0 To use opt.tabstop
 vim.cmd("let g:rust_recommended_style = 0")
 
-vim.filetype.add({
-	pattern = {
-		['.*%.nml'] = 'nml',
-	},
-})
+opt.conceallevel = 2
 
 
 -- Search/Replace

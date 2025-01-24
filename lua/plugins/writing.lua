@@ -75,4 +75,20 @@ return {
 	{
 		"https://github.com/iamcco/markdown-preview.nvim",
 	},
+	
+	-- Project-wide search & replace
+	{
+		"https://github.com/nvim-pack/nvim-spectre"
+	},
+
+	{
+		"https://github.com/ray-x/sad.nvim",
+		dependencies = { "https://github.com/ray-x/guihua.lua" },
+		config = require "plugins.configs.writing".sad.config,
+	},
+
+	{
+		"https://github.com/cshuaimin/ssr.nvim",
+		config = require "plugins.configs.writing".ssr.config,
+	}
 }

@@ -8,15 +8,20 @@ return {
 				lsp_zero.default_keymaps({buffer = bufnr})
 			end)
 
-			lsp_zero.new_client({
-				name = 'nmlls',
-				cmd = {'/home/baraquiel/Programming/nml_rs/target/debug/nmlls'},
-				filetypes = {'nml'},
-				root_dir = function()
-					return lsp_zero.dir.find_first({'readme.nml'})
-				end
-			})
+			--lsp_zero.new_client({
+			--	name = 'nmlls',
+			--	cmd = {'/home/baraquiel/Programming/nml_rs/target/debug/nmlls'},
+			--	filetypes = {'nml'},
+			--	root_dir = function()
+			--		return lsp_zero.dir.find_first({'index.nml'}) or lsp_zero.dir.find_first({'template.nml'}) or lsp_zero.dir.find_first({'readme.nml'})
+			--	end
+			--})
 		end,
+	},
+
+	{
+		dir = "/home/baraquiel/Programming/nml-nvim/",
+		dev = true,
 	},
 
 	{
@@ -56,6 +61,13 @@ return {
 		"folke/neodev.nvim",
 		config = require "plugins.configs.lsp".neodev.config,
 	},
+
+	-- Support clangd lsp extensions
+	{
+		"https://github.com/p00f/clangd_extensions.nvim",
+		config = require "plugins.configs.lsp".clangd.config,
+
+	}
 
 	-- Ltex-ls integration
 	--{
