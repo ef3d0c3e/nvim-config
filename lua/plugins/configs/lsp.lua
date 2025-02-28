@@ -1,146 +1,106 @@
 local config = {
-	lspconfig = {},
-	ccls = {},
+	mason = {},
+	blink = {},
 	fidget = {},
 	actions_preview = {},
 	lspui = {},
-	neodev = {},
-	clangd = {},
-	ltex = {},
+	lspkind = {},
+	inlay_hints = {},
 }
 
-local ccls_filetypes = { "c", "cpp", "objc", "objcpp", "opencl" }
 
-function get_capabilities()
-	local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.foldingRange = {
-		dynamicRegistration = false,
-		lineFoldingOnly = true
-	}
-
-	return capabilities
-end
-
--- {{{ lspconfig
-function config.lspconfig.config()
+-- {{{ mason
+function config.mason.config()
 	-- Setup Mason
-	require("mason").setup({
-		ensure_installed = { "lua_ls", "ltex-ls", "html" },
-	})
+	require("mason").setup()
 	require("mason-lspconfig").setup()
+	
+end
+-- }}}
 
-	local lspconfig = require("lspconfig")
+-- {{{ blink
+function config.blink.config()
+	require "blink.cmp".setup {
+		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
+		-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)
+		-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+		--
+		-- All presets have the following mappings:
+		-- C-space: Open menu or open docs if already open
+		-- C-e: Hide menu
+		-- C-k: Toggle signature help
+		--
+		-- See the full "keymap" documentation for information on defining your own keymap.
+		keymap = { preset = 'super-tab' },
 
-	-- Diagnostics symbols for display in the sign column.
-	local signs = { Error = "", Warn = "", Hint = "󰛨", Info = "" }
-	for type, icon in pairs(signs) do
-		local hl = "DiagnosticSign" .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-	end
+		appearance = {
+			-- Sets the fallback highlight groups to nvim-cmp's highlight groups
+			-- Useful for when your theme doesn't support blink.cmp
+			-- Will be removed in a future release
+			use_nvim_cmp_as_default = true,
+			-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+			-- Adjusts spacing to ensure icons are aligned
+			nerd_font_variant = 'mono'
+		},
 
-	local capabilities = get_capabilities()
+		-- Default list of enabled providers defined so that you can extend it
+		-- elsewhere in your config, without redefining it, due to `opts_extend`
+		sources = {
+			default = { 'lsp', 'path', 'snippets', 'buffer' },
+		},
 
-	-- Servers using default config
-	local servers = { "pylsp", "glslls", "clangd" }
-	for _, lsp in ipairs(servers) do
-		lspconfig[lsp].setup({
-			capabilities = capabilities
-		})
-	end
+		-- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
+		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+		--
+		-- See the fuzzy documentation for more information
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 
-	lspconfig.lua_ls.setup
-	{
-		cmd = { os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server" },
-		settings =
-		{
-			Lua =
-			{
-				hint =
-				{
-					enable = true,
-				},
-				diagnostics = {
-					globals = { "vim" },
-				},
-				workspace = {
-					library = {
-						[vim.fn.expand "$VIMRUNTIME/lua"] = true,
-						[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-						[vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
-						[vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
+		completion = {
+			-- 'prefix' will fuzzy match on the text before the cursor
+			-- 'full' will fuzzy match on the text before _and_ after the cursor
+			-- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
+			keyword = { range = 'full' },
+
+			-- Disable auto brackets
+			-- NOTE: some LSPs may add auto brackets themselves anyway
+			accept = { auto_brackets = { enabled = false }, },
+
+			-- Don't select by default, auto insert on selection
+			list = { selection = { preselect = false, auto_insert = true } },
+			-- or set via a function
+			list = { selection = { preselect = function(ctx) return vim.bo.filetype ~= 'markdown' end } },
+
+			menu = {
+				-- Don't automatically show the completion menu
+				auto_show = true,
+
+				-- nvim-cmp style menu
+				draw = {
+					columns = {
+						{ "kind_icon" },
+						{ "label", "label_description", gap = 1 },
 					},
-					maxPreload = 100000,
-					preloadFileSize = 10000,
-				},
+				}
 			},
+
+			-- Show documentation when selecting a completion item
+			documentation = { auto_show = true, auto_show_delay_ms = 500 },
+
+			-- Display a preview of the selected item on the current line
+			ghost_text = { enabled = true },
 		},
-	}
 
-	lspconfig.clangd.setup
-	{
-		capabilities = capabilities,
-		cmd = {
-			"clangd",
-			"--background-index",
-			"--clang-tidy",
-			"--clang-tidy-checks=*",
-			"--completion-style=detailed",
-			"--all-scopes-completion",
-			"--cross-file-rename",
-			"--completion-style=detailed",
-			"--header-insertion-decorators",
-			"--header-insertion=iwyu",
+		sources = {
+			-- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
+			default = { 'lsp', 'path', 'snippets', 'buffer' },
 		},
-	}
-	--lspconfig.ccls.setup
-	--{
-	--	cmd = { "ccls" },
-	--	filetypes = ccls_filetypes,
-	--	offset_encoding = "utf-16",
 
-	--	init_options =
-	--	{
-	--		index =
-	--		{
-	--			threads = 0;
-	--		};
-	--		clang =
-	--		{
-	--			excludeArgs = { "-frounding-math" };
-	--		};
-	--		highlight = {
-	--			lsRanges = true;
-	--		};
-	--	},
-	--}
+		-- Use a preset for snippets, check the snippets documentation for more information
+		snippets = { preset = 'luasnip' },
 
-	lspconfig.cmake.setup
-	{
-		cmd = { "cmake-language-server" },
-
-		initialization_options = {
-			buildDirectory = "build",
-		},
-	}
-
-	lspconfig.rust_analyzer.setup {
-		cmd = { "rust-analyzer" },
-		filetypes = { "rust" },
-		settings = {
-			["rust-analyzer"] = {
-				diagnostics = {
-					enable = true,
-					disabled = { "unresolved-proc-macro" },
-					enableExperimental = true,
-				},
-				procMacro = {
-					ignored = {
-						["auto_registry"] = { "auto_registry" }
-					},
-				},
-			},
-		},
+		-- Experimental signature help support
+		signature = { enabled = true }
 	}
 end
 
@@ -307,120 +267,189 @@ end
 
 -- }}}
 
--- {{{ neodev
-function config.neodev.config()
-	require("neodev").setup({
-		library = { plugins = { "nvim-dap-ui" }, types = true },
-	})
-end
+-- {{{ lspkind
+function config.lspkind.config()
+	require('lspkind').init({
+		-- DEPRECATED (use mode instead): enables text annotations
+		--
+		-- default: true
+		-- with_text = true,
 
--- }}}
+		-- defines how annotations are shown
+		-- default: symbol
+		-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+		mode = 'symbol_text',
 
--- {{{ clangd
-function config.clangd.config()
-	require("clangd_extensions").setup({
-		inlay_hints = {
-			inline = vim.fn.has("nvim-0.10") == 1,
-			-- Options other than `highlight' and `priority' only work
-			-- if `inline' is disabled
-			-- Only show inlay hints for the current line
-			only_current_line = false,
-			-- Event which triggers a refresh of the inlay hints.
-			-- You can make this { "CursorMoved" } or { "CursorMoved,CursorMovedI" } but
-			-- note that this may cause higher CPU usage.
-			-- This option is only respected when only_current_line is true.
-			only_current_line_autocmd = { "CursorHold" },
-			-- whether to show parameter hints with the inlay hints or not
-			show_parameter_hints = true,
-			-- prefix for parameter hints
-			parameter_hints_prefix = "<- ",
-			-- prefix for all the other hints (type, chaining)
-			other_hints_prefix = "=> ",
-			-- whether to align to the length of the longest line in the file
-			max_len_align = false,
-			-- padding from the left if max_len_align is true
-			max_len_align_padding = 1,
-			-- whether to align to the extreme right or not
-			right_align = false,
-			-- padding from the right if right_align is true
-			right_align_padding = 7,
-			-- The color of the hints
-			highlight = "Comment",
-			-- The highlight group priority for extmark
-			priority = 100,
-		},
-		ast = {
-			-- These are unicode, should be available in any font
-			role_icons = {
-				type = "🄣",
-				declaration = "🄓",
-				expression = "🄔",
-				statement = ";",
-				specifier = "🄢",
-				["template argument"] = "🆃",
-			},
-			kind_icons = {
-				Compound = "🄲",
-				Recovery = "🅁",
-				TranslationUnit = "🅄",
-				PackExpansion = "🄿",
-				TemplateTypeParm = "🅃",
-				TemplateTemplateParm = "🅃",
-				TemplateParamObject = "🅃",
-			},
-			role_icons = {
-				type = "",
-				declaration = "",
-				expression = "",
-				specifier = "",
-				statement = "",
-				["template argument"] = "",
-			},
-			kind_icons = {
-				Compound = "",
-				Recovery = "",
-				TranslationUnit = "",
-				PackExpansion = "",
-				TemplateTypeParm = "",
-				TemplateTemplateParm = "",
-				TemplateParamObject = "",
-			},
-			highlights = {
-				detail = "Comment",
-			},
-		},
-		memory_usage = {
-			border = "none",
-		},
-		symbol_info = {
-			border = "none",
+		-- default symbol map
+		-- can be either 'default' (requires nerd-fonts font) or
+		-- 'codicons' for codicon preset (requires vscode-codicons font)
+		--
+		-- default: 'default'
+		preset = 'default',
+
+		-- override preset symbols
+		--
+		-- default: {}
+		symbol_map = {
+			Text = "󰉿",
+			Method = "󰆧",
+			Function = "󰊕",
+			KeywordFunction = "󰊕",
+			Constructor = "",
+			Field = "󰜢",
+			Variable = "󰀫",
+			Class = "󰠱",
+			Interface = "",
+			Module = "",
+			Property = "󰜢",
+			Unit = "󰑭",
+			Value = "󰎠",
+			Enum = "",
+			Keyword = "󰌋",
+			Snippet = "",
+			Color = "󰏘",
+			File = "󰈙",
+			Reference = "󰈇",
+			Folder = "󰉋",
+			EnumMember = "",
+			Constant = "󰏿",
+			Boolean = ' ',
+			Struct = "󰙅",
+			Event = "",
+			Operator = "󰆕",
+			Type = ' ',
+			TypeParameter = '󰆩 ',
+			VariableBuiltin = '󰫧 ',
+			KeywordOperator = ' ',
+			VariableMember = '󱃻 ',
+			Comment = ' ',
+			String = ' ',
+			StringEscape = '󱊷 ',
+			Character = '󰾹',
+			Number = '',
+			KeywordType = '',
+			FunctionMacro = '󰡱',
+			VariableParameter = ' ',
+			KeywordConditional = '󰦐 ',
+			KeywordModifier = ' ',
+			KeywordImport = '󰋺 ',
+			TypeBuiltin = '',
+			KeywordRepeat = '󰑖',
+			KeywordReturn = '󰌑',
+			_Parent = '󱘎 ',
 		},
 	})
 end
-
 -- }}}
 
--- {{{ ltex
-function config.ltex.config()
-	require("lspconfig").ltex.setup {
-		capabilities = get_capabilities(),
-		-- on_attach = function(client, bufnr)
-		on_attach = function()
-			require("ltex_extra").setup {
-				load_langs = { "en-US" }, -- table <string> : languages for witch dictionaries will be loaded
-				init_check = true, -- boolean : whether to load dictionaries on startup
-				path = nil,   -- string : path to store dictionaries. Relative path uses current working directory
-				log_level = "none", -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
-			}
+-- {{{ inlay_hints
+function config.inlay_hints.config()
+	require('inlay-hint').setup({
+		-- Position of virtual text. Possible values:
+		-- 'eol': right after eol character (default).
+		-- 'right_align': display right aligned in the window.
+		-- 'inline': display at the specified column, and shift the buffer
+		-- text to the right as needed.
+		virt_text_pos = 'eol',
+		-- Can be supplied either as a string or as an integer,
+		-- the latter which can be obtained using |nvim_get_hl_id_by_name()|.
+		highlight_group = 'LspInlayHint',
+		-- Control how highlights are combined with the
+		-- highlights of the text.
+		-- 'combine': combine with background text color. (default)
+		-- 'replace': only show the virt_text color.
+		hl_mode = 'combine',
+		-- line_hints: array with all hints present in current line.
+		-- options: table with this plugin configuration.
+		-- bufnr: buffer id from where the hints come from.
+		display_callback = function(line_hints, options, bufnr)
+			if options.virt_text_pos == 'inline' then
+				local lhint = {}
+				for _, hint in pairs(line_hints) do
+					local text = ''
+					local label = hint.label
+					if type(label) == 'string' then
+						text = label
+					else
+						for _, part in ipairs(label) do
+							text = text .. part.value
+						end
+					end
+					if hint.paddingLeft then
+						text = ' ' .. text
+					end
+					if hint.paddingRight then
+						text = text .. ' '
+					end
+					lhint[#lhint + 1] = { text = text, col = hint.position.character }
+				end
+				return lhint
+			elseif options.virt_text_pos == 'eol' or options.virt_text_pos == 'right_align' then
+				local k1 = {}
+				local k2 = {}
+				table.sort(line_hints, function(a, b)
+					return a.position.character < b.position.character
+				end)
+				for _, hint in pairs(line_hints) do
+					local label = hint.label
+					local kind = hint.kind
+					local node = kind == 1
+					and vim.treesitter.get_node({
+						bufnr = bufnr,
+						pos = {
+							hint.position.line,
+							hint.position.character - 1,
+						},
+					})
+					or nil
+					local node_text = node and vim.treesitter.get_node_text(node, bufnr, {}) or ''
+					local text = ''
+					if type(label) == 'string' then
+						text = label
+					else
+						for _, part in ipairs(label) do
+							text = text .. part.value
+						end
+					end
+					if kind == 1 then
+						k1[#k1 + 1] = text:gsub(':%s*', node_text .. ': ')
+					else
+						k2[#k2 + 1] = text:gsub(':$', '')
+					end
+				end
+				local text = ''
+				if #k2 > 0 then
+					text = '<- (' .. table.concat(k2, ',') .. ')'
+				end
+				if #text > 0 then
+					text = text .. ' '
+				end
+				if #k1 > 0 then
+					text = text .. '=> ' .. table.concat(k1, ', ')
+				end
+
+				return text
+			end
+			return nil
 		end,
-		settings = {
-			ltex = {
-				language = "auto",
-			}
-		}
-	}
+	})
+	-- Enable inlay hints
+	vim.api.nvim_create_autocmd('LspAttach', {
+		callback = function(args)
+			local bufnr = args.buf ---@type number
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			if client.supports_method('textDocument/inlayHint') then
+				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+				vim.keymap.set('n', '<leader>i', function()
+					vim.lsp.inlay_hint.enable(
+						not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
+						{ bufnr = bufnr }
+					)
+				end, { buffer = bufnr })
+			end
+		end,
+	})
 end
-
 -- }}}
 
 return config

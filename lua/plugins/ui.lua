@@ -8,14 +8,6 @@ return {
 	},
 
 	{
-		"vhyrro/luarocks.nvim",
-    	priority = 1001, -- this plugin needs to run before anything else
-    	opts = {
-    	    rocks = { "magick" },
-    	},
-	},
-
-	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		init = require "plugins.configs.ui".telescope.init,
@@ -115,8 +107,15 @@ return {
 	},
 
 	{
-		"https://github.com/altermo/nwm",
-		branch = "x11",
-		config = require "plugins.configs.ui".nwm.config,
+	  'nvimdev/dashboard-nvim',
+	  event = 'VimEnter',
+	  lazy = true,
+	  config = function()
+		  if not vim.g.neovide then
+			  return
+		  end
+		  require('dashboard').setup(require "plugins.configs.ui".dashboard)
+	  end,
+	  dependencies = { {'nvim-tree/nvim-web-devicons'}}
 	}
 }

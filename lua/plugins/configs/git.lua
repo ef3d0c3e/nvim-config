@@ -121,7 +121,6 @@ local config = {
 	  },
 	  commit_view = {
 	    kind = "vsplit",
-	    verify_commit = os.execute("which gpg") == 0, -- Can be set to true or false, otherwise we try to find the binary
 	  },
 	  log_view = {
 	    kind = "tab",
