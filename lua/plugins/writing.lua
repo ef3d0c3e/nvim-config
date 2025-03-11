@@ -11,11 +11,11 @@ return {
 	--	init = require "plugins.configs.writing".rainbow.init,
 	--},
 
-	{
-		"shellRaining/hlchunk.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		config = require "plugins.configs.writing".hlchunk.config
-	},
+	--{
+	--	"shellRaining/hlchunk.nvim",
+	--	event = { "BufReadPre", "BufNewFile" },
+	--	config = require "plugins.configs.writing".hlchunk.config
+	--},
 
 	{
 		"kylechui/nvim-surround",
@@ -90,5 +90,16 @@ return {
 	{
 		"https://github.com/cshuaimin/ssr.nvim",
 		config = require "plugins.configs.writing".ssr.config,
-	}
+	},
+
+	-- MD Preview
+	{
+		'brianhuster/live-preview.nvim',
+		dependencies = {
+			-- You can choose one of the following pickers
+			'nvim-telescope/telescope.nvim',
+			'ibhagwan/fzf-lua',
+			'echasnovski/mini.pick',
+		},
+	},
 }
