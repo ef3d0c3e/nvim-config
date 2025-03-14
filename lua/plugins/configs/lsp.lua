@@ -1,6 +1,7 @@
 local config = {
 	mason = {},
 	blink = {},
+	tiny_inline_diagnostic = {},
 	fidget = {},
 	actions_preview = {},
 	lspui = {},
@@ -104,6 +105,15 @@ function config.blink.config()
 	}
 end
 
+-- }}}
+
+-- {{{ tiny_inline_diagnostic
+
+function config.tiny_inline_diagnostic.config()
+	require('tiny-inline-diagnostic').setup({
+        show_all_diags_on_cursorline = true,
+	})
+end
 -- }}}
 
 -- {{{ fidget

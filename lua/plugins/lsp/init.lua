@@ -12,9 +12,16 @@ return {
 
 	-- Completion handler
 	{
-		'saghen/blink.cmp',
+		"saghen/blink.cmp",
 		version = '*',
 		config = require "plugins.configs.lsp".blink.config,
+	},
+
+	-- Better diagnostics
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		priority = 1000, -- needs to be loaded in first
+		config = require "plugins.configs.lsp".tiny_inline_diagnostic.config,
 	},
 
 	-- Allow lsp injection via lua
@@ -56,6 +63,11 @@ return {
 		config = require "plugins.configs.lsp".inlay_hints.config,
 		branch = 'nightly',
 		lazy = false,
+	},
+
+	-- Put lsp hints at the end
+	{
+		"ef3d0c3e/nml-nvim",
 	},
 
 	-- Setup servers
