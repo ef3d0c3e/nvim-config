@@ -1,4 +1,4 @@
-local M = {
+return {
 	init = function()
 		vim.lsp.config('clangd', {
 			cmd = {
@@ -10,6 +10,7 @@ local M = {
 				"--completion-style=detailed",
 				"--header-insertion-decorators",
 				"--header-insertion=iwyu",
+				"--clang-tidy",
 			},
 			filetypes = { 'c', 'cpp' },
 		})
@@ -101,5 +102,3 @@ local M = {
 		end,
 	}
 }
-
-return M

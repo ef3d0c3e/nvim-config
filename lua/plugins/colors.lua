@@ -10,7 +10,7 @@ return {
 	{
 		"https://github.com/nyoom-engineering/oxocarbon.nvim",
 		config = function()
-			vim.cmd("colorscheme kanagawa")
+			vim.cmd("colorscheme delek")
 			vim.cmd("hi Normal guibg=none")
 		end,
 	},

@@ -71,22 +71,7 @@ return {
 		config = require "plugins.configs.writing".ultimate_autopair.config,
 	},
 
-	-- Preview markdown in browser
-	{
-		"https://github.com/iamcco/markdown-preview.nvim",
-	},
-	
-	-- Project-wide search & replace
-	{
-		"https://github.com/nvim-pack/nvim-spectre"
-	},
-
-	{
-		"https://github.com/ray-x/sad.nvim",
-		dependencies = { "https://github.com/ray-x/guihua.lua" },
-		config = require "plugins.configs.writing".sad.config,
-	},
-
+	-- Treesitter-based search and replace
 	{
 		"https://github.com/cshuaimin/ssr.nvim",
 		config = require "plugins.configs.writing".ssr.config,

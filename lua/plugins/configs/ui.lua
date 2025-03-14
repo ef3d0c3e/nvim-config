@@ -804,11 +804,13 @@ end
 
 -- {{{ lualine
 function config.lualine.config()
-	local ppp = require("lush_theme.ppp")
 	local colors = {
-		bg = ppp.LualineNormal.bg.hex,
-		fg = ppp.LualineNormal.fg.hex,
-		accent = ppp.LualineAccent.bg.hex,
+		bg = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).bg),
+		fg = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).fg),
+		accent = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).fg),
+		diag_error = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
+		diag_warn = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
+		diag_warn = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
 		black = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "EndOfBuffer", link = false }).fg),
 		white = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Normal", link = false }).fg),
 		red = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Error", link = false }).fg),
@@ -980,9 +982,9 @@ function config.lualine.config()
 					update_in_insert = true,
 					symbols = { error = " ", warn = " ", info = " " },
 					diagnostics_color = { -- TODO: Not working...
-						color_error = { fg = ppp.LualineDiagError.fg.hex },
-						color_warn = { fg = ppp.LualineDiagWarn.fg.hex },
-						color_info = { fg = ppp.LualineDiagInfo.fg.hex },
+						color_error = { fg = colors.diag_error },
+						color_warn = { fg = colors.diag_warn },
+						color_info = { fg = colors.diag_info },
 					},
 					color = { bg = colors.bg }
 				},

@@ -1,8 +1,4 @@
 return {
-	--{
-	--	"nvim-lua/plenary.nvim",
-	--},
-
 	{
 		"nvim-tree/nvim-web-devicons",
 	},
@@ -14,42 +10,24 @@ return {
 	},
 
 	{
-		"andrew-george/telescope-themes",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("telescope").load_extension("themes")
-		end
-	},
-
-	{
-		"stevearc/dressing.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		opts = require "plugins.configs.ui".dressing,
-	},
-
-	{
 		"folke/which-key.nvim",
 		cmd = "WhichKey",
 		lazy = false,
 		opts = require "plugins.configs.ui".which_key,
 	},
 
+	-- File/buffer/git explorer
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		dependencies = { "s1n7ax/nvim-window-picker" },
 		config = require "plugins.configs.ui".neo_tree.config,
 	},
 
+	-- Changes vim tab bar
 	{
 		"akinsho/bufferline.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = require "plugins.configs.ui".bufferline.config,
-	},
-
-	{
-		"Bekaboo/dropbar.nvim",
-		dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
-		config = require "plugins.configs.ui".dropbar.config,
 	},
 
 	{ -- Colored cursorline
@@ -82,6 +60,7 @@ return {
 		},
 	},
 
+	-- Navigate diagnostics
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -106,15 +85,13 @@ return {
 		config = require "plugins.configs.ui".winsep.config,
 	},
 
+	-- Startup screen (for neovide only)
 	{
 	  'nvimdev/dashboard-nvim',
 	  event = 'VimEnter',
 	  lazy = true,
-	  config = function()
-		  if not vim.g.neovide then
-			  return
-		  end
-		  require('dashboard').setup(require "plugins.configs.ui".dashboard)
+	  enabled = function()
+		  return vim.g.neovide
 	  end,
 	  dependencies = { {'nvim-tree/nvim-web-devicons'}}
 	}
