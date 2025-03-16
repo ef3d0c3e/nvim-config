@@ -1,4 +1,5 @@
 return {
+	plugins = {},
 	init = function()
 		vim.lsp.config('rust-analyzer', {
 			cmd = { "rust-analyzer" },

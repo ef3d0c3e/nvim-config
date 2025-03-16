@@ -1,4 +1,4 @@
-return {
+local M = {
 	-- Auto configure lsp
 	{
 		"williamboman/mason.nvim",
@@ -65,22 +65,27 @@ return {
 		lazy = false,
 	},
 
-	-- Put lsp hints at the end
 	{
 		"ef3d0c3e/nml-nvim",
 	},
 
 	-- Setup servers
-	require "plugins.lsp.clangd".init(),
-	require "plugins.lsp.rust-analyzer".init(),
-	require "plugins.lsp.luals".init(),
-
-	init = function()
-		-- Diagnostics symbols for display in the sign column.
-		local signs = { Error = "", Warn = "", Hint = "󰛨", Info = "" }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-		end
-	end,
+	require "plugins.lsp.clangd".plugins,
+	require "plugins.lsp.rust-analyzer".plugins,
+	require "plugins.lsp.luals".plugins,
+	require "plugins.lsp.shell".plugins,
 }
+
+-- Diagnostics symbols for display in the sign column.
+local signs = { Error = "", Warn = "", Hint = "󰛨", Info = "" }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+require "plugins.lsp.clangd".init()
+require "plugins.lsp.rust-analyzer".init()
+require "plugins.lsp.luals".init()
+require "plugins.lsp.shell".init()
+
+return M

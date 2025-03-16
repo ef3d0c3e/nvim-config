@@ -1,14 +1,16 @@
 return {
 	-- Auto setup lua_ls for neovim plugin developpement (also a requirement of nvim-dap-ui)
-	{
-		"folke/neodev.nvim",
-		opts = {},
+	plugins = {
+		{
+			"folke/neodev.nvim",
+			opts = {}
+		},
 	},
 
 	init = function() 
 		vim.lsp.config('lua_ls', {
 			cmd = { os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server" },
-			filetypes = { "lua" },
+			filetypes = { "rust" },
 			settings =
 			{
 				Lua =
