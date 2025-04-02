@@ -87,4 +87,23 @@ return {
 			'echasnovski/mini.pick',
 		},
 	},
+
+	-- Doc
+	{
+		"https://github.com/danymat/neogen",
+		config = function()
+			require('neogen').setup({ snippet_engine = "luasnip" })
+		end
+	},
+
+	-- Norminette lint
+	{
+		"https://github.com/FtVim/norminette-lint.nvim",
+		config = function()
+			require("norminette-lint").setup({
+				enable_on_start = false,  -- Default to false to improve startup performance
+				keybinding = "<leader>Fn", -- Default keybinding, you can define yours
+			})
+		end
+	},
 }
