@@ -138,3 +138,5 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<c-\\><c-n><Cr>", {})
 	end
 })
+
+vim.cmd("set colorcolumn=80")

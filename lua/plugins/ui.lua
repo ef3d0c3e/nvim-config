@@ -58,6 +58,7 @@ return {
 			"MunifTanjim/nui.nvim",
 			"rcarriga/nvim-notify",
 		},
+		config = require "plugins.configs.ui".noice.config,
 	},
 
 	-- Navigate diagnostics

@@ -35,173 +35,6 @@ local config = {
 
 	telescope = {},
 
-	-- {{{ dressing
-	dressing = {
-		input = {
-			-- Set to false to disable the vim.ui.input implementation
-			enabled = true,
-
-			-- Default prompt string
-			default_prompt = "Input",
-
-			-- Trim trailing `:` from prompt
-			trim_prompt = true,
-
-			-- Can be 'left', 'right', or 'center'
-			title_pos = "left",
-
-			-- When true, <Esc> will close the modal
-			insert_only = true,
-
-			-- When true, input will start in insert mode.
-			start_in_insert = true,
-
-			-- These are passed to nvim_open_win
-			border = "rounded",
-			-- 'editor' and 'win' will default to being centered
-			relative = "cursor",
-
-			-- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-			prefer_width = 40,
-			width = nil,
-			-- min_width and max_width can be a list of mixed types.
-			-- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
-			max_width = { 140, 0.9 },
-			min_width = { 20, 0.2 },
-
-			buf_options = {},
-			win_options = {
-				-- Disable line wrapping
-				wrap = false,
-				-- Indicator for when text exceeds window
-				list = true,
-				listchars = "precedes:…,extends:…",
-				-- Increase this for more context when text scrolls off the window
-				sidescrolloff = 0,
-			},
-
-			-- Set to `false` to disable
-			mappings = {
-				n = {
-					["<Esc>"] = "Close",
-					["<CR>"] = "Confirm",
-				},
-				i = {
-					["<C-c>"] = "Close",
-					["<CR>"] = "Confirm",
-					["<Up>"] = "HistoryPrev",
-					["<Down>"] = "HistoryNext",
-				},
-			},
-
-			override = function(conf)
-				-- This is the config that will be passed to nvim_open_win.
-				-- Change values here to customize the layout
-				return conf
-			end,
-
-			-- see :help dressing_get_config
-			get_config = nil,
-		},
-		select = {
-			-- Set to false to disable the vim.ui.select implementation
-			enabled = true,
-
-			-- Priority list of preferred vim.select implementations
-			backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
-
-			-- Trim trailing `:` from prompt
-			trim_prompt = true,
-
-			-- Options for telescope selector
-			-- These are passed into the telescope picker directly. Can be used like:
-			-- telescope = require('telescope.themes').get_ivy({...})
-			telescope = nil,
-
-			-- Options for fzf selector
-			fzf = {
-				window = {
-					width = 0.5,
-					height = 0.4,
-				},
-			},
-
-			-- Options for fzf-lua
-			fzf_lua = {
-				-- winopts = {
-				--	 height = 0.5,
-				--	 width = 0.5,
-				-- },
-			},
-
-			-- Options for nui Menu
-			nui = {
-				position = "50%",
-				size = nil,
-				relative = "editor",
-				border = {
-					style = "rounded",
-				},
-				buf_options = {
-					swapfile = false,
-					filetype = "DressingSelect",
-				},
-				win_options = {
-					winblend = 0,
-				},
-				max_width = 80,
-				max_height = 40,
-				min_width = 40,
-				min_height = 10,
-			},
-
-			-- Options for built-in selector
-			builtin = {
-				-- Display numbers for options and set up keymaps
-				show_numbers = true,
-				-- These are passed to nvim_open_win
-				border = "rounded",
-				-- 'editor' and 'win' will default to being centered
-				relative = "editor",
-
-				buf_options = {},
-				win_options = {
-					cursorline = true,
-					cursorlineopt = "both",
-				},
-
-				-- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-				-- the min_ and max_ options can be a list of mixed types.
-				-- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
-				width = nil,
-				max_width = { 140, 0.8 },
-				min_width = { 40, 0.2 },
-				height = nil,
-				max_height = 0.9,
-				min_height = { 10, 0.2 },
-
-				-- Set to `false` to disable
-				mappings = {
-					["<Esc>"] = "Close",
-					["<C-c>"] = "Close",
-					["<CR>"] = "Confirm",
-				},
-
-				override = function(conf)
-					-- This is the config that will be passed to nvim_open_win.
-					-- Change values here to customize the layout
-					return conf
-				end,
-			},
-
-			-- Used to override format_item. See :help dressing-format
-			format_item_override = {},
-
-			-- see :help dressing_get_config
-			get_config = nil,
-		},
-	}, -- }}}
-
 	neo_tree = {},
 
 	bufferline = {},
@@ -227,50 +60,12 @@ local config = {
 
 		-- Disable modes highlights in specified filetypes
 		-- Please PR commonly ignored filetypes
-		ignore_filetypes = { 'neo-tree', 'TelescopePrompt' }
+		ignore = { 'neo-tree', 'TelescopePrompt' }
 	}, -- }}}
 
 	lualine = {},
 
-	noice = {
-		routes = {
-			{
-				filter = {
-					event = "msg_show",
-					find = "B written",
-				},
-				opts = { skip = true },
-			},
-			{
-				filter = {
-					event = "msg_show",
-					find = "more line",
-				},
-				opts = { skip = true },
-			},
-			{
-				filter = {
-					event = "msg_show",
-					find = "change; before",
-				},
-				opts = { skip = true },
-			},
-			{
-				filter = {
-					event = "msg_show",
-					find = "less; before",
-				},
-				opts = { skip = true },
-			},
-			{
-				filter = {
-					event = "msg_show",
-					find = "lines yanked",
-				},
-				opts = { skip = true },
-			},
-		},
-	},
+	noice = {},
 
 	toggleterm = {},
 
@@ -802,7 +597,7 @@ function config.dropbar.config()
 end
 -- }}}
 
--- {{{ lualine
+-- {{{ ualine
 function config.lualine.config()
 	local colors = {
 		bg = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).bg),
@@ -811,8 +606,6 @@ function config.lualine.config()
 		diag_error = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
 		diag_warn = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
 		diag_warn = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
-		black = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "EndOfBuffer", link = false }).fg),
-		white = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Normal", link = false }).fg),
 		red = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Error", link = false }).fg),
 		green = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "String", link = false }).fg),
 		blue = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Question", link = false }).fg),
@@ -1064,16 +857,105 @@ function config.noice.config()
 		override = {
 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+		},
+		hover = {
+			enabled = true,
+			silent = false, -- set to true to not show a message if hover is not available
+			view = nil, -- when nil, use defaults from documentation
+			---@type NoiceViewOptions
+			opts = {}, -- merged with defaults from documentation
+		},
+		signature = {
+			enabled = true,
+			auto_open = {
+				enabled = true,
+				trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+				luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+				throttle = 50, -- Debounce lsp signature help request by 50ms
+			},
+			view = nil, -- when nil, use defaults from documentation
+			---@type NoiceViewOptions
+			opts = {}, -- merged with defaults from documentation
+		},
+		message = {
+			-- Messages shown by lsp servers
+			enabled = true,
+			view = "notify",
+			opts = {},
+		},
+		-- defaults for hover and signature help
+		documentation = {
+			view = "hover",
+			---@type NoiceViewOptions
+			opts = {
+				lang = "markdown",
+				replace = true,
+				render = "plain",
+				format = { "{message}" },
+				win_options = { concealcursor = "n", conceallevel = 3 },
+			},
 		},
 	},
 	-- you can enable a preset for easier configuration
 	presets = {
-		bottom_search = true, -- use a classic bottom cmdline for search
+		bottom_search = false, -- use a classic bottom cmdline for search
 		command_palette = true, -- position the cmdline and popupmenu together
 		long_message_to_split = true, -- long messages will be sent to a split
 		inc_rename = false, -- enables an input dialog for inc-rename.nvim
 		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
+	views = {
+		cmdline_popup = {
+			position = {
+				row = 5,
+				col = "50%",
+			},
+			size = {
+				width = 60,
+				height = "auto",
+			},
+			win_options = {
+				--winhighlight = { Normal = "ErrorMsg", FloatBorder = "TermCursor" },
+				winhighlight = "NormalFloat:Normal,FloatBorder:ErrorMsg",
+			},
+		},
+	},
+	routes = {
+		{
+			filter = {
+				event = "msg_show",
+				find = "B written",
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				find = "more line",
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				find = "change; before",
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				find = "less; before",
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				find = "lines yanked",
+			},
+			opts = { skip = true },
+		},
 	},
 })
 end
