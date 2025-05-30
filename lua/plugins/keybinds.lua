@@ -6,6 +6,7 @@ wk.add({
 	{ "<leader>T", "<cmd>Telescope<cr>", desc = "Telescope", mode = "n" },
 	{ "<leader>b", group = "buffers", expand = function() return require("which-key.extras").expand.buf() end },
 	{ "<leader>d", "<cmd>Telescope man_pages<cr>", desc = "Open Manual", mode = "n" },
+	{ "<leader>e", "<cmd>Telescope<cr>", desc = "Menu", mode = "n" },
 
 	-- Finder
 	{ "<leader>f", group = "Finder" },
