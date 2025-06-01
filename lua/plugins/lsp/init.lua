@@ -44,11 +44,11 @@ local M = {
 	},
 
 	-- Additional LSP action handler
-	{
-		"jinzhongjia/LspUI.nvim",
-		branch = "main",
-		config = require "plugins.configs.lsp".lspui.config,
-	},
+	--{
+	--	"jinzhongjia/LspUI.nvim",
+	--	branch = "main",
+	--	config = require "plugins.configs.lsp".lspui.config,
+	--},
 
 	-- Icons
 	{
@@ -66,7 +66,9 @@ local M = {
 	},
 
 	{
-		"ef3d0c3e/nml-nvim",
+		"/home/user/code/nml-nvim/",
+		dir = "/home/user/code/nml-nvim/",
+		dev = true,
 	},
 
 	-- Setup servers

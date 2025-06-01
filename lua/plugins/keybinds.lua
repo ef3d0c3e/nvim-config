@@ -63,8 +63,8 @@ wk.add({
 	{ "gO", "<cmd>Telescope lsp_outgoing_calls<cr>", desc = "Outgoing Calls", mode="n"},
 	{ "gs", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace Symbols", mode="n"},
 	{ "gf", "<cmd>lua require(\"actions-preview\").code_actions()<cr>", desc = "Code action", mode="n"},
-	{ "gh", "<cmd>LspUI hover<cr>", desc = "Hover Symbol", mode="n"},
-	{ "gR", "<cmd>LspUI rename<cr>", desc = "Rename", mode="n"},
+	{ "gh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover Symbol", mode="n"},
+	{ "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode="n"},
 })
 
 wk.add({
