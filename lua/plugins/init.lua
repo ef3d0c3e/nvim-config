@@ -9,6 +9,7 @@ require("lazy").setup({
 	require "plugins.highlight",
 	require "plugins.writing",
 	require "plugins.git",
+	--require "plugins.java",
 	require "plugins.lsp",
 })
 

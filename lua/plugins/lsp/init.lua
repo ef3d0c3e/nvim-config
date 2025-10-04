@@ -2,8 +2,8 @@ local M = {
 	-- Auto configure lsp
 	{
 		"williamboman/mason.nvim",
-		dependencies = {"williamboman/mason-lspconfig.nvim"},
 		config = require "plugins.configs.lsp".mason.config,
+		lazy = false,
 	},
 
 	{
@@ -57,13 +57,13 @@ local M = {
 	},
 
 	-- Put lsp hints at the end
-	{
-		"https://github.com/felpafel/inlay-hint.nvim",
-		event = "LspAttach",
-		config = require "plugins.configs.lsp".inlay_hints.config,
-		branch = 'nightly',
-		lazy = false,
-	},
+	--{
+	--	"https://github.com/felpafel/inlay-hint.nvim",
+	--	event = "LspAttach",
+	--	config = require "plugins.configs.lsp".inlay_hints.config,
+	--	branch = 'nightly',
+	--	lazy = false,
+	--},
 
 	{
 		"/home/user/code/nml-nvim/",

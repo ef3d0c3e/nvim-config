@@ -95,5 +95,11 @@ return {
 		  return vim.g.neovide
 	  end,
 	  dependencies = { {'nvim-tree/nvim-web-devicons'}}
+	},
+
+	-- Manage settings
+	{
+		"folke/neoconf.nvim",
+		init = require "plugins.configs.ui".neoconf.init,
 	}
 }

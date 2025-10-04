@@ -100,3 +100,7 @@ wk.add({
 	{ "<A-C-l>", "<cmd>lua require('smart-splits').swap_buf_down()<cr>", desc = "Swap Down", mode = "nit"},
 	{ "<A-C-down>", "<cmd>lua require('smart-splits').swap_buf_down()<cr>", desc = "Swap Down", mode = "nit"},
 })
+
+wk.add({
+	{ "<C-w>d", "<cmd>bd<cr>", desc = "Buffer delete", mode = "n"},
+})

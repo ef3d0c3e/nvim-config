@@ -13,9 +13,12 @@ local config = {
 -- {{{ mason
 function config.mason.config()
 	-- Setup Mason
-	require("mason").setup()
-	require("mason-lspconfig").setup()
-	
+	require("mason").setup({
+		registries = {
+			'github:nvim-java/mason-registry',
+			'github:mason-org/mason-registry',
+		},
+	})
 end
 -- }}}
 
@@ -32,7 +35,32 @@ function config.blink.config()
 		-- C-k: Toggle signature help
 		--
 		-- See the full "keymap" documentation for information on defining your own keymap.
-		keymap = { preset = 'super-tab' },
+		keymap = {
+			preset = 'none',
+			['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+			['<C-e>'] = { 'cancel', 'fallback' },
+
+			['<Tab>'] = {
+				function(cmp)
+					if cmp.snippet_active() then
+						return cmp.accept()
+					else
+						return cmp.select_and_accept()
+					end
+				end,
+				'snippet_forward',
+				'fallback',
+			},
+			['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+
+			['<Up>'] = { 'select_prev', 'fallback' },
+			['<Down>'] = { 'select_next', 'fallback' },
+			['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+			['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+
+			['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+			['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+		},
 
 		appearance = {
 			-- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -441,22 +469,6 @@ function config.inlay_hints.config()
 				return text
 			end
 			return nil
-		end,
-	})
-	-- Enable inlay hints
-	vim.api.nvim_create_autocmd('LspAttach', {
-		callback = function(args)
-			local bufnr = args.buf ---@type number
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			if client.supports_method('textDocument/inlayHint') then
-				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-				vim.keymap.set('n', '<leader>i', function()
-					vim.lsp.inlay_hint.enable(
-						not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
-						{ bufnr = bufnr }
-					)
-				end, { buffer = bufnr })
-			end
 		end,
 	})
 end

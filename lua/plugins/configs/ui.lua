@@ -95,6 +95,8 @@ local config = {
 			}
 		}
 	},
+
+	neoconf = {},
 }
 
 -- {{{ telescope
@@ -1119,6 +1121,12 @@ function config.winsep.config()
 		},
 		light_pollution = function(lines) end,
 	})
+end
+-- }}}
+
+-- {{{ neoconf
+function config.neoconf.init()
+	require("neoconf").setup()
 end
 -- }}}
 

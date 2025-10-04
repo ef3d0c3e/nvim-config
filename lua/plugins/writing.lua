@@ -106,4 +106,10 @@ return {
 			})
 		end
 	},
+
+	{
+		"/home/user/code/ollma-nvim/",
+		dir = "/home/user/code/ollma-nvim/",
+		dev = true,
+	},
 }

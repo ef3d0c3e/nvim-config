@@ -1,22 +1,4 @@
 return {
-	init = function()
-		vim.lsp.config('clangd', {
-			cmd = {
-				"clangd",
-				"--background-index",
-				"--clang-tidy",
-				"--completion-style=detailed",
-				"--all-scopes-completion",
-				"--completion-style=detailed",
-				"--header-insertion-decorators",
-				"--header-insertion=iwyu",
-				"--clang-tidy",
-			},
-			filetypes = { 'c', 'cpp' },
-		})
-		vim.lsp.enable('clangd')
-	end,
-
 	-- Support clangd lsp extensions
 	plugins =
 	{
@@ -103,5 +85,23 @@ return {
 				})
 			end,
 		}
-	}
-	}
+	},
+	init = function()
+		vim.lsp.config('clangd', {
+			cmd = {
+				"clangd",
+				"--background-index",
+				"--clang-tidy",
+				"--completion-style=detailed",
+				"--all-scopes-completion",
+				"--completion-style=detailed",
+				"--header-insertion-decorators",
+				"--header-insertion=never",
+				"--clang-tidy",
+			},
+			filetypes = { 'c', 'cpp' },
+		})
+
+		vim.lsp.enable('clangd')
+	end
+}

@@ -4,6 +4,9 @@ return {
 		vim.lsp.config('rust-analyzer', {
 			cmd = { "rust-analyzer" },
 			filetypes = { "rust" },
+			on_attach = function (client, bufnr)
+				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+			end,
 			settings = {
 				["rust-analyzer"] = {
 					diagnostics = {
@@ -56,5 +59,7 @@ return {
 				},
 			},
 		})
+
+		vim.lsp.enable('rust-analyzer')
 	end,
 }
