@@ -102,4 +102,15 @@ return {
 		"folke/neoconf.nvim",
 		init = require "plugins.configs.ui".neoconf.init,
 	},
+
+	--{
+	--	"https://github.com/ef3d0c3e/nvim-clipboard",
+	--	config = function ()
+	--		require('nvim-clipboard').setup({
+	--			max_items = 10,                                          -- Max clipboard history items
+	--			file = vim.fn.stdpath("data") .. '/clipboard.txt',             -- Clipboard history file
+	--			vault_file = vim.fn.stdpath('data') .. '/vault.dat'     -- Vault file location (optional)
+	--		})
+	--	end
+	--},
 }
