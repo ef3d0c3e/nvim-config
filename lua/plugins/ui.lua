@@ -101,5 +101,5 @@ return {
 	{
 		"folke/neoconf.nvim",
 		init = require "plugins.configs.ui".neoconf.init,
-	}
+	},
 }

@@ -5,8 +5,8 @@ wk.add({
 	{ "<leader>t", "<cmd>term<cr>i", desc = "Open Terminal", mode = "n"},
 	{ "<leader>T", "<cmd>Telescope<cr>", desc = "Telescope", mode = "n" },
 	{ "<leader>b", group = "buffers", expand = function() return require("which-key.extras").expand.buf() end },
+	{ "<leader>F", group = "custom" },
 	{ "<leader>d", "<cmd>Telescope man_pages<cr>", desc = "Open Manual", mode = "n" },
-	{ "<leader>e", "<cmd>Telescope<cr>", desc = "Menu", mode = "n" },
 
 	-- Finder
 	{ "<leader>f", group = "Finder" },
@@ -33,7 +33,9 @@ wk.add({
 	{ "<leader>lr", "<cmd>Telescope lsp_references<cr>", desc = "Show references", mode="n" },
 	{ "<leader>li", "<cmd>Telescope lsp_implementations<cr>", desc = "Show implementation", mode="n" },
 	{ "<leader>ls", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "List workspace symbols", mode="n" },
-	{ "<leader>lo", "<cmd>Lspsaga outline<cr>", desc = "Toggle outline", mode="n" },
+	{ "<leader>lf", function ()
+		vim.lsp.buf.format({ async = false })
+	end, desc = "Format buffer", mode="n" },
 })
 
 -- Other

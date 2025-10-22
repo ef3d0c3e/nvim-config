@@ -9,7 +9,6 @@ local config = {
 	inlay_hints = {},
 }
 
-
 -- {{{ mason
 function config.mason.config()
 	-- Setup Mason

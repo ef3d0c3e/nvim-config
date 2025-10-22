@@ -25,7 +25,7 @@ opt.hlsearch = true
 
 -- Trailing chars
 opt.list = true
-opt.listchars = {trail = '·', tab = '  '}
+opt.listchars = {trail = '·', tab = '   '}
 
 -- Writing
 opt.undolevels = 10000

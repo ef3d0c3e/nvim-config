@@ -7,7 +7,7 @@ return {
 			config = function()
 				require("clangd_extensions").setup({
 					inlay_hints = {
-						inline = vim.fn.has("nvim-0.10") == 1,
+						inline = vim.fn.has("nvim-0.11") == 1,
 						-- Options other than `highlight' and `priority' only work
 						-- if `inline' is disabled
 						-- Only show inlay hints for the current line
@@ -88,6 +88,9 @@ return {
 	},
 	init = function()
 		vim.lsp.config('clangd', {
+			on_attach = function (client, bufnr)
+				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+			end,
 			cmd = {
 				"clangd",
 				"--background-index",

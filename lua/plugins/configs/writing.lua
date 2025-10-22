@@ -10,6 +10,8 @@ local config = {
 	sad = {},
 
 	ssr = {},
+
+	multiple_cursors = {},
 }
 
 -- {{{ rainbow-delimiters
@@ -128,7 +130,8 @@ end
 
 -- {{{ ultimate_autopair
 function config.ultimate_autopair.config()
-	require("ultimate-autopair").setup({})
+	require("ultimate-autopair").setup({
+	})
 end
 -- }}}
 
@@ -167,5 +170,24 @@ function config.ssr.config()
     }
 end
 -- }}}
+
+-- {{{ multiple-cursors
+function config.multiple_cursors.config()
+	require ("multiple-cursors").setup({
+		pre_hook = function()
+			require('ultimate-autopair').disable()
+		end,
+		post_hook = function()
+			require('ultimate-autopair').enable()
+		end,
+		custom_key_maps = {
+			{"n", "<Leader>sa", function(_, count, motion_cmd, char)
+				vim.cmd("normal " .. count .. "sa" .. motion_cmd .. char)
+			end, "mc"},
+		},
+	})
+end
+-- }}}
+
 
 return config

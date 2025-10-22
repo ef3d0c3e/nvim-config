@@ -603,8 +603,8 @@ end
 function config.lualine.config()
 	local colors = {
 		bg = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).bg),
-		fg = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).fg),
-		accent = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).fg),
+		fg = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Normal", link = false }).fg),
+		accent = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Normal", link = false }).fg),
 		diag_error = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
 		diag_warn = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),
 		diag_warn = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg),

@@ -27,6 +27,7 @@ return {
 	{
 		"brenton-leighton/multiple-cursors.nvim",
 		version = "*",	-- Use the latest tagged version
+		config = require "plugins.configs.writing".multiple_cursors.config,
 		opts = {},	-- This causes the plugin setup function to be called
 		keys = {
 			{"<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "x"}},
@@ -105,11 +106,5 @@ return {
 				keybinding = "<leader>Fn", -- Default keybinding, you can define yours
 			})
 		end
-	},
-
-	{
-		"/home/user/code/ollma-nvim/",
-		dir = "/home/user/code/ollma-nvim/",
-		dev = true,
 	},
 }

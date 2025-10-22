@@ -1,29 +1,17 @@
 return {
-	{ 'echasnovski/mini.colors', version = false },
-	{"rktjmp/lush.nvim"},
-
-	{
-		--dir = "/home/baraquiel/.local/share/nvim/lazy/ppp/",
-		"https://github.com/ef3d0c3e/nvim-ppp",
-	},
-
-	{
-		"https://github.com/nyoom-engineering/oxocarbon.nvim",
-	},
-
 	{
 		"https://github.com/rebelot/kanagawa.nvim",
 		config = function()
 		-- Default options:
 			require('kanagawa').setup({
-				compile = false,             -- enable compiling the colorscheme
+				compile = true,             -- enable compiling the colorscheme
 				undercurl = true,            -- enable undercurls
 				commentStyle = { italic = true },
 				functionStyle = {},
 				keywordStyle = { italic = true},
 				statementStyle = { bold = true },
 				typeStyle = {},
-				transparent = false,         -- do not set background color
+				transparent = true,         -- do not set background color
 				dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
 				terminalColors = true,       -- define vim.g.terminal_color_{0,17}
 				colors = {                   -- add/modify theme and palette colors
