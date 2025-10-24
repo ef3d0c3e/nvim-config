@@ -7,7 +7,9 @@ DEPLOY_DIR=$(dirname "$(realpath $0)")
 deploy_file()
 {
 	echo "> Deploying '$1' -> '$2'"
-	# TODO: Create paths
+	local dir
+	dir=$(dirname "$2")
+	[[ ! -d "${dir}" ]] && echo "Creating dir ${dir}.." && mkdir -p "${dir}"
 	cp "${DEPLOY_DIR}/$1" $2
 }
 
