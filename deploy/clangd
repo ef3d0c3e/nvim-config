@@ -2,6 +2,7 @@ CompileFlags:
   Add: ["-Wall", "-Wextra", "-Wconversion"]
 If:
     PathExclude: [.*\.c, .*\.h]
+---
 CompileFlags:
     Add:
         - "-std=c++2b"
