@@ -27,8 +27,16 @@ return {
 					light = "lotus"
 				},
 			})
-			vim.cmd("colorscheme kanagawa")
-			vim.cmd("hi Normal guibg=none")
+			--vim.cmd("colorscheme kanagawa")
+			--vim.cmd("hi Normal guibg=none")
 		end,
+	},
+	
+	{
+		"nyoom-engineering/oxocarbon.nvim",
+		config = function ()
+			vim.cmd("colorscheme oxocarbon")
+			vim.cmd("hi Normal guibg=none")
+		end
 	}
 }

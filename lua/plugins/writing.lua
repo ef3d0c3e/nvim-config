@@ -26,16 +26,16 @@ return {
 
 	{
 		"brenton-leighton/multiple-cursors.nvim",
-		version = "*",	-- Use the latest tagged version
+		version = "*", -- Use the latest tagged version
 		config = require "plugins.configs.writing".multiple_cursors.config,
-		opts = {},	-- This causes the plugin setup function to be called
+		opts = {}, -- This causes the plugin setup function to be called
 		keys = {
-			{"<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "x"}},
-			{"<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "i", "x"}},
-			{"<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "x"}},
-			{"<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "i", "x"}},
-			{"<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = {"n", "i"}},
-			{"<Leader>a", "<Cmd>MultipleCursorsAddMatches<CR>", mode = {"n", "x"}},
+			{ "<C-j>",         "<Cmd>MultipleCursorsAddDown<CR>",        mode = { "n", "x" } },
+			{ "<C-Down>",      "<Cmd>MultipleCursorsAddDown<CR>",        mode = { "n", "i", "x" } },
+			{ "<C-k>",         "<Cmd>MultipleCursorsAddUp<CR>",          mode = { "n", "x" } },
+			{ "<C-Up>",        "<Cmd>MultipleCursorsAddUp<CR>",          mode = { "n", "i", "x" } },
+			{ "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = { "n", "i" } },
+			{ "<Leader>a",     "<Cmd>MultipleCursorsAddMatches<CR>",     mode = { "n", "x" } },
 		},
 	},
 
@@ -61,7 +61,7 @@ return {
 	-- Auto align
 	{
 		"tommcdo/vim-lion",
-		config = function () end,
+		config = function() end,
 	},
 
 	-- Auto pair
@@ -102,9 +102,44 @@ return {
 		"https://github.com/FtVim/norminette-lint.nvim",
 		config = function()
 			require("norminette-lint").setup({
-				enable_on_start = false,  -- Default to false to improve startup performance
+				enable_on_start = false, -- Default to false to improve startup performance
 				keybinding = "<leader>Fn", -- Default keybinding, you can define yours
 			})
 		end
 	},
+
+	{
+		"/home/user/code/sniper.nvim",
+		dir = "/home/user/code/sniper.nvim/",
+		dev = true,
+		config = function ()
+			local sniper = require("sniper")
+			sniper.setup({
+				marks =
+				{
+					paren =
+					{
+						hi = { bg = "#Ff2fFF", fg = "#000000", bold = true },
+						key = { "p", "P" },
+						symbols = { "(", ")", },
+					},
+					braces =
+					{
+						hi = { bg = "#Ff8f4F", fg = "#000000", bold = true },
+						key = { "b", "B" },
+						symbols = { "{", "}", },
+					},
+					commas =
+					{
+						hi = { bg = "#FFFF00", fg = "#000000", bold = true },
+						key = { "c", "C" },
+						symbols = { ",", ";", },
+					}
+				}
+			})
+			vim.keymap.set({"n", "v"}, "w", function ()
+				sniper.mode.sniper_mode_enter(sniper)
+			end)
+		end
+	}
 }

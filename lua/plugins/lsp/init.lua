@@ -65,17 +65,18 @@ local M = {
 	--	lazy = false,
 	--},
 
-	--{
-	--	"/home/user/code/nml-nvim/",
-	--	dir = "/home/user/code/nml-nvim/",
-	--	dev = true,
-	--},
+	{
+		"/home/user/code/nml-nvim/",
+		dir = "/home/user/code/nml-nvim/",
+		dev = true,
+	},
 
 	-- Setup servers
 	require "plugins.lsp.clangd".plugins,
 	require "plugins.lsp.rust-analyzer".plugins,
 	require "plugins.lsp.luals".plugins,
 	require "plugins.lsp.shell".plugins,
+	require "plugins.lsp.r".plugins,
 }
 
 -- Diagnostics symbols for display in the sign column.
@@ -89,5 +90,6 @@ require "plugins.lsp.clangd".init()
 require "plugins.lsp.rust-analyzer".init()
 require "plugins.lsp.luals".init()
 require "plugins.lsp.shell".init()
+require "plugins.lsp.r".init()
 
 return M

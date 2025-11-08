@@ -4,6 +4,11 @@ return {
 	},
 
 	{
+		"folke/snacks.nvim",
+		config = require "plugins.configs.ui".snacks.config,
+	},
+
+	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		init = require "plugins.configs.ui".telescope.init,
@@ -101,6 +106,11 @@ return {
 	{
 		"folke/neoconf.nvim",
 		init = require "plugins.configs.ui".neoconf.init,
+	},
+
+	{
+		"saghen/blink.indent",
+		config = require "plugins.configs.ui".blink_indent.config,
 	},
 
 	--{
