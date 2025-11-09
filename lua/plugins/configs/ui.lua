@@ -639,7 +639,6 @@ function config.lualine.config()
 		orange = string.format('#%06x', vim.api.nvim_get_hl(0, { name = "Title", link = false }).fg),
 	}
 
-
 	local filename_with_icon = require("lualine.components.filename"):extend()
 	filename_with_icon.apply_icon = require("lualine.components.filetype").apply_icon
 	filename_with_icon.icon_hl_cache = {}
