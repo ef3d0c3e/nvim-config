@@ -108,38 +108,38 @@ return {
 		end
 	},
 
-	{
-		"/home/user/code/sniper.nvim",
-		dir = "/home/user/code/sniper.nvim/",
-		dev = true,
-		config = function ()
-			local sniper = require("sniper")
-			sniper.setup({
-				marks =
-				{
-					paren =
-					{
-						hi = { bg = "#Ff2fFF", fg = "#000000", bold = true },
-						key = { "p", "P" },
-						symbols = { "(", ")", },
-					},
-					braces =
-					{
-						hi = { bg = "#Ff8f4F", fg = "#000000", bold = true },
-						key = { "b", "B" },
-						symbols = { "{", "}", },
-					},
-					commas =
-					{
-						hi = { bg = "#FFFF00", fg = "#000000", bold = true },
-						key = { "c", "C" },
-						symbols = { ",", ";", },
-					}
-				}
-			})
-			vim.keymap.set({"n", "v"}, "w", function ()
-				sniper.mode.sniper_mode_enter(sniper)
-			end)
-		end
-	}
+	--{
+	--	"/home/user/code/sniper.nvim",
+	--	dir = "/home/user/code/sniper.nvim/",
+	--	dev = true,
+	--	config = function ()
+	--		local sniper = require("sniper")
+	--		sniper.setup({
+	--			marks =
+	--			{
+	--				paren =
+	--				{
+	--					hi = { bg = "#Ff2fFF", fg = "#000000", bold = true },
+	--					key = { "p", "P" },
+	--					symbols = { "(", ")", },
+	--				},
+	--				braces =
+	--				{
+	--					hi = { bg = "#Ff8f4F", fg = "#000000", bold = true },
+	--					key = { "b", "B" },
+	--					symbols = { "{", "}", },
+	--				},
+	--				commas =
+	--				{
+	--					hi = { bg = "#FFFF00", fg = "#000000", bold = true },
+	--					key = { "c", "C" },
+	--					symbols = { ",", ";", },
+	--				}
+	--			}
+	--		})
+	--		vim.keymap.set({"n", "v"}, "w", function ()
+	--			sniper.mode.sniper_mode_enter(sniper)
+	--		end)
+	--	end
+	--}
 }

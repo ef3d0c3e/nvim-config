@@ -113,14 +113,24 @@ return {
 		config = require "plugins.configs.ui".blink_indent.config,
 	},
 
-	--{
-	--	"https://github.com/ef3d0c3e/nvim-clipboard",
-	--	config = function ()
-	--		require('nvim-clipboard').setup({
-	--			max_items = 10,                                          -- Max clipboard history items
-	--			file = vim.fn.stdpath("data") .. '/clipboard.txt',             -- Clipboard history file
-	--			vault_file = vim.fn.stdpath('data') .. '/vault.dat'     -- Vault file location (optional)
-	--		})
-	--	end
-	--},
+	{
+		"https://github.com/ef3d0c3e/nvim-clipboard",
+		config = function ()
+			require('nvim-clipboard').setup({
+				max_items = 1024,
+				file = function ()
+					return vim.fn.stdpath('data') .. '/clipboard.txt'
+				end,
+				notify = false,
+				keys = {
+					-- Append current clipboard item to vault
+					vault_append = { 'n', '<leader>va' },
+					-- Open vault
+					vault_open = { 'n', '<leader>vv' },
+					-- Open clipboard history
+					history_open = { 'n', '<leader>hh' },
+				},
+			})
+		end
+	},
 }
