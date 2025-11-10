@@ -39,6 +39,7 @@ return {
 		config = function ()
 			vim.cmd("colorscheme oxocarbon")
 			vim.cmd("hi Normal guibg=none")
+			vim.cmd("hi NormalNC guibg=none")
 		end
 	}
 }
