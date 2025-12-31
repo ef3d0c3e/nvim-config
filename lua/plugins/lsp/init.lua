@@ -65,12 +65,6 @@ local M = {
 	--	lazy = false,
 	--},
 
-	{
-		"/home/user/code/nml-nvim/",
-		dir = "/home/user/code/nml-nvim/",
-		dev = true,
-	},
-
 	-- Setup servers
 	require "plugins.lsp.clangd".plugins,
 	require "plugins.lsp.rust-analyzer".plugins,

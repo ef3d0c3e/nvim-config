@@ -64,12 +64,11 @@ return {
 		config = function() end,
 	},
 
-	-- Auto pair
+	-- Auto pairs
 	{
-		"altermo/ultimate-autopair.nvim",
-		event = { "InsertEnter", "CmdlineEnter" },
-		branch = "v0.6", --recommended as each new version will have breaking changes
-		config = require "plugins.configs.writing".ultimate_autopair.config,
+		'windwp/nvim-autopairs',
+		event = "InsertEnter",
+		config = require "plugins.configs.writing".autopairs.config,
 	},
 
 	-- Treesitter-based search and replace

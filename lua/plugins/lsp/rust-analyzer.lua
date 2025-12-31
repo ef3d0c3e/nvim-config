@@ -15,7 +15,7 @@ return {
 						enableExperimental = true,
 					},
 					procMacro = {
-						enable = false,
+						enable = true,
 						ignored = { "auto_registry" },
 					},
 					completion = {
