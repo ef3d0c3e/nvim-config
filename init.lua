@@ -14,4 +14,5 @@ vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappin
 vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
 require "plugins"
-require "config.nvim"
+require "nvim"
+require "keybinds"

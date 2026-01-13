@@ -25,7 +25,7 @@ opt.hlsearch = true
 
 -- Trailing chars
 opt.list = true
-opt.listchars = {trail = '·', tab = '   '}
+opt.listchars = {trail = '·', tab = '-->'}
 
 -- Writing
 opt.undolevels = 10000
@@ -48,7 +48,7 @@ opt.shortmess:append "sI"
 
 -- Ui
 --opt.signcolumn = 'yes:1' -- Adds padding
-opt.splitbelow = true
+opt.splitbelow = false
 opt.splitright = true
 opt.showmode = false
 opt.hidden = true
@@ -130,6 +130,7 @@ opt.foldmethod = "marker"
 opt.foldlevelstart = 0
 opt.foldenable = true
 
+-- <Esc><Esc> To exit terminal mode
 vim.api.nvim_create_autocmd("TermOpen", {
 	desc = "Custom terminal",
 	callback = function(args)
@@ -139,4 +140,5 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	end
 })
 
-vim.cmd("set colorcolumn=80")
+-- Single, global statusline
+opt.laststatus = 3
