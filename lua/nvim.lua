@@ -142,3 +142,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 -- Single, global statusline
 opt.laststatus = 3
+
+-- Disable tabbar
+vim.o.showtabline = 0 

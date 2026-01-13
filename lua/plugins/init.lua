@@ -5,5 +5,6 @@ require("lazy").setup({
 		config = true,
 	},
 	require "plugins.ui",
+	require "plugins.writing",
 	require "plugins.lsp",
 })

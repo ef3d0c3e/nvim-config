@@ -84,11 +84,21 @@ return {
 			require "modus-themes".setup {
 				transparent = true,
 			}
-			vim.cmd("colorscheme modus")
+		end
+	},
+	{
+		"https://github.com/serhez/teide.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require "teide".setup {
+				transparent = true
+			}
+			vim.cmd("colorscheme teide-dark")
 		end
 	},
 	-- }}}
-	
+
 	-- {{{ Floating, per-split statusline
 	{
 		"b0o/incline.nvim",
@@ -188,46 +198,120 @@ return {
 		"saghen/blink.indent",
 		config = function()
 			require "blink.indent".setup {
-				blocked = {
-					-- default: 'terminal', 'quickfix', 'nofile', 'prompt'
-					buftypes = { include_defaults = true },
-					-- default: 'lspinfo', 'packer', 'checkhealth', 'help', 'man', 'gitcommit', 'dashboard', ''
-					filetypes = { include_defaults = true },
+			}
+		end
+	},
+	-- }}}
+
+	-- {{{ Buffer manager
+	{
+		"serhez/bento.nvim",
+		opts = {},
+	},
+	-- }}}
+
+	-- {{{ Statusline
+	{
+		"nvim-lualine/lualine.nvim",
+		config = function()
+			local function pill(component, color)
+				return vim.tbl_extend("force", component, {
+					separator = { left = "", right = "" },
+					color = { fg = color, bg = "NONE" },
+					padding = { left = 0, right = 0 },
+				})
+			end
+
+			require "lualine".setup {
+				options = {
+					icons_enabled = true,
+					theme = "auto",
+					component_separators = "",
+					section_separators = "",
+					globalstatus = false, -- one bar per nvim instance
 				},
-				mappings = {
-					-- which lines around the scope are included for 'ai': 'top', 'bottom', 'both', or 'none'
-					border = 'both',
-					-- set to '' to disable
-					-- textobjects (e.g. `y2ii` to yank current and outer scope)
-					object_scope = 'ii',
-					object_scope_with_border = 'ai',
-					-- motions
-					goto_top = '[i',
-					goto_bottom = ']i',
-				},
-				static = {
-					enabled = true,
-					char = '▎',
-					whitespace_char = nil, -- inherits from `vim.opt.listchars:get().space` when `nil` (see `:h listchars`)
-					priority = 1,
-					-- specify multiple highlights here for rainbow-style indent guides
-					-- highlights = { 'BlinkIndentRed', 'BlinkIndentOrange', 'BlinkIndentYellow', 'BlinkIndentGreen', 'BlinkIndentViolet', 'BlinkIndentCyan' },
-					highlights = { 'BlinkIndent' },
-				},
-				scope = {
-					enabled = true,
-					char = '▎',
-					priority = 1000,
-					-- set this to a single highlight, such as 'BlinkIndent' to disable rainbow-style indent guides
-					-- highlights = { 'BlinkIndentScope' },
-					-- optionally add: 'BlinkIndentRed', 'BlinkIndentCyan', 'BlinkIndentYellow', 'BlinkIndentGreen'
-					highlights = { 'BlinkIndentOrange', 'BlinkIndentViolet', 'BlinkIndentBlue' },
-					-- enable to show underlines on the line above the current scope
-					underline = {
-						enabled = false,
-						-- optionally add: 'BlinkIndentRedUnderline', 'BlinkIndentCyanUnderline', 'BlinkIndentYellowUnderline', 'BlinkIndentGreenUnderline'
-						highlights = { 'BlinkIndentOrangeUnderline', 'BlinkIndentVioletUnderline', 'BlinkIndentBlueUnderline' },
+
+				sections = {
+					-- LEFT
+					lualine_a = {
+						{
+							"mode",
+							fmt = function(str) return " " .. str .. " " end,
+						},
 					},
+
+					lualine_b = {
+						{
+							function()
+								return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+							end,
+							icon = "",
+						},
+						{
+							"branch",
+							icon = "",
+						},
+					},
+
+					-- CENTER (INTENTIONALLY EMPTY)
+					lualine_c = {},
+
+					-- RIGHT
+					lualine_x = {
+						-- LSPs
+						{
+							function()
+								local clients = {}
+								for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+									table.insert(clients, client.name)
+								end
+								return table.concat(clients, ",")
+							end,
+							icon = "",
+						},
+
+						-- CR / CRLF
+						{
+							function()
+								return vim.bo.fileformat:upper()
+							end,
+						},
+
+						-- Encoding
+						{
+							function()
+								return (vim.bo.fileencoding ~= "" and vim.bo.fileencoding or vim.o.encoding):upper()
+							end,
+						},
+
+						-- Line:Col (+ Visual WxH)
+						{
+							function()
+								local l, c = unpack(vim.api.nvim_win_get_cursor(0))
+								local out = string.format("%d:%d", l, c)
+
+								if vim.fn.mode():match("[vV\22]") then
+									local v = vim.fn.getpos("v")
+									local h = math.abs(v[2] - l) + 1
+									local w = math.abs(v[3] - c) + 1
+									out = out .. string.format(" (%dx%d)", w, h)
+								end
+
+								return out
+							end,
+						},
+
+						-- Clock
+						{
+							function()
+								return os.date("%H:%M")
+							end,
+							icon = "",
+						},
+					},
+
+					lualine_y = {},
+					lualine_z = {},
 				},
 			}
 		end
