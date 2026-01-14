@@ -90,7 +90,7 @@ return {
 		priority = 1000,
 		config = function()
 			require "teide".setup {
-				transparent = true
+				transparent = false
 			}
 			vim.cmd("colorscheme teide-dark")
 			vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "#293038"})
@@ -98,6 +98,11 @@ return {
 			vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg= "#6272a4" })
 
 		end
+	},
+
+	{
+		"brenoprata10/nvim-highlight-colors",
+		opts = {},
 	},
 	-- }}}
 
@@ -108,6 +113,13 @@ return {
 			local helpers = require 'incline.helpers'
 			local navic = require 'nvim-navic'
 			local devicons = require 'nvim-web-devicons'
+
+			local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+			vim.api.nvim_set_hl(0, "BufferLineDiff_removed", { bg = "#2f2f39", fg = "#af4a5f" })
+			vim.api.nvim_set_hl(0, "BufferLineDiff_changed", { bg = "#2f2f39", fg = "#2f9abf" })
+			vim.api.nvim_set_hl(0, "BufferLineDiff_added", { bg = "#2f2f39", fg = "#2fba8f" })
+			vim.api.nvim_set_hl(0, "BufferLineDiffSep", { bg = "None", fg = "#2f2f39" })
+
 			require('incline').setup {
 				window = {
 					padding = 0,
@@ -123,11 +135,14 @@ return {
 						end
 						for name, icon in pairs(icons) do
 							if tonumber(signs[name]) and signs[name] > 0 then
-								table.insert(labels, { icon .. signs[name] .. ' ', group = 'Diff' .. name })
+								if #labels ~= 0 then
+									table.insert(labels, { " ", group = 'BufferLineDiff_added' })
+								end
+								table.insert(labels, { icon .. signs[name], group = 'BufferLineDiff_' .. name })
 							end
 						end
 						if #labels > 0 then
-							table.insert(labels, { '┊ ' })
+							table.insert(labels, { '', group = 'BufferLineDiffSep' })
 						end
 						return labels
 					end
