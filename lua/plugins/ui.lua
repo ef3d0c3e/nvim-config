@@ -47,14 +47,6 @@ return {
 			}
 		},
 		keys = {
-			-- LSP [TODO]
-			{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
-			{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
-			{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
-			{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
-			{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
-			{ "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming" },
-			{ "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing" },
 			-- Other
 			{ "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
 			{ "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
@@ -82,11 +74,6 @@ return {
 		lazy = false,
 	},
 
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-
 	-- {{{ Theme
 	{
 		"miikanissi/modus-themes.nvim",
@@ -107,6 +94,9 @@ return {
 			}
 			vim.cmd("colorscheme teide-dark")
 			vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "#293038"})
+			vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg= "#6272a4" })
+			vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg= "#6272a4" })
+
 		end
 	},
 	-- }}}

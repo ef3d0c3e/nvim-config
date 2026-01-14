@@ -8,6 +8,7 @@ wk.add({
 	{ "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
 	{ "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
 	{ "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+	{ "<leader>t", "<cmd>term<cr>i", desc = "Open Terminal", mode = "n"},
 
 	-- Files
 	{ "<leader>f", group = "File" },
@@ -17,25 +18,25 @@ wk.add({
 	{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
 	{ "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
 	{ "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
-	{ "<leader>fw", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+	{ "<leader>fw", function() Snacks.picker.grep() end, desc = "Grep" },
 	{ "<leader>fR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
 
 	-- Git
-	{ "<leader>g", group = "Git" },
-	{ "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
-	{ "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
-	{ "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
-	{ "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
-	{ "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
-	{ "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
-	{ "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
-	{ "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
-	{ "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+	{ "<leader>G", group = "Git" },
+	{ "<leader>Gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
+	{ "<leader>Gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
+	{ "<leader>GL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
+	{ "<leader>Gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
+	{ "<leader>GS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
+	{ "<leader>Gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
+	{ "<leader>Gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
+	{ "<leader>GB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
+	{ "<leader>Gg", function() Snacks.lazygit() end, desc = "Lazygit" },
 	-- Github
-	{ "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
-	{ "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
-	{ "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
-	{ "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
+	{ "<leader>Gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+	{ "<leader>GI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
+	{ "<leader>Gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+	{ "<leader>GP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
 
 	-- Search
 	{ "<leader>s", group = "Search" },
@@ -95,4 +96,24 @@ wk.add({
 	{ "<F4>", "<cmd>Neotree toggle<cr>", desc = "Toggle file tree" },
 	-- Paste and reindent using Ctrl-P
 	{ "<C-P>", "p=']", desc = "Paste and reindent" },
+	-- Delete current buffer
+	{ "<C-w>d", "<cmd>bd<cr>", desc = "Buffer delete", mode = "n"},
 })
+
+-- {{{ LSP
+Snacks.keymap.set("n", "gf", vim.lsp.buf.code_action, {
+  lsp = { method = "textDocument/codeAction" },
+  desc = "Code Action",
+})
+wk.add({
+	{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+	{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+	{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+	{ "gi", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+	{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+	{ "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming" },
+	{ "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing" },
+	{ "gh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover Symbol", mode="n"},
+	{ "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode="n"},
+})
+-- }}}

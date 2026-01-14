@@ -1,4 +1,3 @@
-
 return {
 	plugins = {},
 	init = function()

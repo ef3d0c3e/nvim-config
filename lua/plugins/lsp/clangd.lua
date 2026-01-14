@@ -90,6 +90,7 @@ return {
 		vim.lsp.config('clangd', {
 			on_attach = function (client, bufnr)
 				--vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+				require "nvim-navic".attach(client, bufnr)
 			end,
 			cmd = {
 				"clangd",

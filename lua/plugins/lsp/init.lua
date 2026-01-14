@@ -152,26 +152,26 @@ local M = {
 	--	branch = 'nightly',
 	--	lazy = false,
 	--},
+	{
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		event = "LspAttach", -- load after LSP attaches
+		config = function()
+			require "lsp_lines".setup {
+
+			}
+			require("lsp_lines").toggle()
+			vim.diagnostic.config({ virtual_text = false })
+		end,
+	},
 
 	-- Setup servers
 	require "plugins.lsp.clangd".plugins,
 	require "plugins.lsp.rust-analyzer".plugins,
-	--require "plugins.lsp.luals".plugins,
-	--require "plugins.lsp.shell".plugins,
-	--require "plugins.lsp.r".plugins,
+	require "plugins.lsp.shellcheck".plugins,
 }
-
----- Diagnostics symbols for display in the sign column.
---local signs = { Error = "", Warn = "", Hint = "󰛨", Info = "" }
---for type, icon in pairs(signs) do
---	local hl = "DiagnosticSign" .. type
---	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
---end
 
 require "plugins.lsp.clangd".init()
 require "plugins.lsp.rust-analyzer".init()
---require "plugins.lsp.luals".init()
---require "plugins.lsp.shell".init()
---require "plugins.lsp.r".init()
+require "plugins.lsp.shellcheck".init()
 
 return M

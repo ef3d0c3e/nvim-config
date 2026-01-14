@@ -271,6 +271,9 @@ local component_macro = Pill{
 
 -- {{{ Encoding
 local component_encoding = Pill{
+	condition = function()
+		return vim.bo.fileencoding and vim.bo.fileencoding ~= ""
+	end,
 	provider = function()
 		return vim.bo.fileencoding:upper() 
 	end,
@@ -348,7 +351,10 @@ heirline.setup {
 			condition =	component_macro.condition,
 		},
 		component_encoding,
-		{ provider = " " },
+		{
+			provider = " ",
+			condition =	component_encoding.condition,
+		},
 		component_newline,
 		{ provider = " " },
 		component_position,
