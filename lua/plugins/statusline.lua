@@ -72,6 +72,7 @@ local theme = {
 	encoding = { fg = "#af87d7", bg = "#1f1f1f", bold = true },
 	newline = { fg = "#af87d7", bg = "#1f1f1f", bold = true },
 	position = { fg = "#d78787", bg = "#1f1f1f", bold = true },
+	clock = { fg = "#2f9fac", bg = "#1f1f1f", bold = true },
 }
 
 local function mode_color()
@@ -117,7 +118,7 @@ local component_project = Pill{
 		-- Fallback to cwd if no git repo
 		local path = git_root ~= "" and git_root or vim.fn.getcwd()
 		-- Return last directory name
-		return " " .. vim.fn.fnamemodify(path, ":t")
+		return "  " .. vim.fn.fnamemodify(path, ":t")
 	end,
 	hl = function()
 		return theme.project
@@ -186,7 +187,7 @@ local component_git = Pill{
 	end,
 }
 -- }}}
---
+
 -- {{{ LSP
 local component_lsp = Pill{
 	condition = function()
@@ -198,7 +199,7 @@ local component_lsp = Pill{
 		for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
 			table.insert(names, client.name)
 		end
-		return " " .. table.concat(names, " | ")
+		return "  " .. table.concat(names, " | ")
 	end,
 
 	hl = function()
@@ -275,7 +276,7 @@ local component_encoding = Pill{
 		return vim.bo.fileencoding and vim.bo.fileencoding ~= ""
 	end,
 	provider = function()
-		return vim.bo.fileencoding:upper() 
+		return vim.bo.fileencoding:upper()
 	end,
 	hl = function() return theme.encoding end,
 }
@@ -322,6 +323,22 @@ local component_position = Pill{
 }
 -- }}}
 
+-- {{{ Clock
+local component_clock = Pill{
+	provider = function()
+		return "  " .. os.date("%H:%M")
+	end,
+	hl = function() return theme.clock end,
+}
+
+-- Clock refresh timer
+local timer = vim.loop.new_timer()
+timer:start(0, 60000, vim.schedule_wrap(function()
+	-- Force Heirline to redraw
+	vim.cmd("redrawstatus")
+end))
+-- }}}
+
 -- Setup heirline
 heirline.setup {
 	statusline = {
@@ -358,7 +375,8 @@ heirline.setup {
 		component_newline,
 		{ provider = " " },
 		component_position,
-
+		{ provider = " " },
+		component_clock,
 	},
 }
 
