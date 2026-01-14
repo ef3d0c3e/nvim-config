@@ -89,4 +89,10 @@ wk.add({
 	{ "<A-S-up>", "<cmd>resize +2<cr>", desc = "Resize Up", mode = "nit" },
 	{ "<A-K>", "<cmd>resize +2<cr>", desc = "Resize Up", mode = "nit" },
 	-- }}}
+
+
+	-- TODO: Fix toggle only closing file explorer with edgy
+	{ "<F4>", "<cmd>Neotree toggle<cr>", desc = "Toggle file tree" },
+	-- Paste and reindent using Ctrl-P
+	{ "<C-P>", "p=']", desc = "Paste and reindent" },
 })

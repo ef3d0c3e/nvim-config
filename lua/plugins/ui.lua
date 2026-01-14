@@ -64,6 +64,17 @@ return {
 	},
 	-- }}}
 
+	-- {{{ Noice
+	{
+		"folke/noice.nvim",
+		config = function()
+			require "noice".setup {
+
+			}
+		end
+	},
+	-- }}}
+
 	{
 		"folke/which-key.nvim",
 		cmd = "WhichKey",
@@ -95,6 +106,7 @@ return {
 				transparent = true
 			}
 			vim.cmd("colorscheme teide-dark")
+			vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "#293038"})
 		end
 	},
 	-- }}}
@@ -113,7 +125,7 @@ return {
 				},
 				render = function(props)
 					local function get_git_diff()
-						local icons = { removed = '', changed = '', added = '' }
+						local icons = { removed = ' ', changed = ' ', added = ' ' }
 						local signs = vim.b[props.buf].gitsigns_status_dict
 						local labels = {}
 						if signs == nil then
@@ -131,7 +143,7 @@ return {
 					end
 
 					local function get_diagnostic_label()
-						local icons = { error = '', warn = '', info = '', hint = '' }
+						local icons = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' }
 						local label = {}
 
 						for severity, icon in pairs(icons) do
@@ -181,7 +193,6 @@ return {
 	},
 	-- }}}
 
-
 	-- {{{ LSP breadcrumbs (required by incline)
 	{
 		"SmiteshP/nvim-navic",
@@ -212,108 +223,36 @@ return {
 
 	-- {{{ Statusline
 	{
-		"nvim-lualine/lualine.nvim",
+		"rebelot/heirline.nvim",
+		config = function() require "plugins.statusline" end,
+	},
+	-- }}}
+
+	{
+		"lewis6991/gitsigns.nvim",
 		config = function()
-			local function pill(component, color)
-				return vim.tbl_extend("force", component, {
-					separator = { left = "", right = "" },
-					color = { fg = color, bg = "NONE" },
-					padding = { left = 0, right = 0 },
-				})
-			end
+			require "gitsigns".setup {
 
-			require "lualine".setup {
-				options = {
-					icons_enabled = true,
-					theme = "auto",
-					component_separators = "",
-					section_separators = "",
-					globalstatus = false, -- one bar per nvim instance
-				},
-
-				sections = {
-					-- LEFT
-					lualine_a = {
-						{
-							"mode",
-							fmt = function(str) return " " .. str .. " " end,
-						},
-					},
-
-					lualine_b = {
-						{
-							function()
-								return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-							end,
-							icon = "",
-						},
-						{
-							"branch",
-							icon = "",
-						},
-					},
-
-					-- CENTER (INTENTIONALLY EMPTY)
-					lualine_c = {},
-
-					-- RIGHT
-					lualine_x = {
-						-- LSPs
-						{
-							function()
-								local clients = {}
-								for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
-									table.insert(clients, client.name)
-								end
-								return table.concat(clients, ",")
-							end,
-							icon = "",
-						},
-
-						-- CR / CRLF
-						{
-							function()
-								return vim.bo.fileformat:upper()
-							end,
-						},
-
-						-- Encoding
-						{
-							function()
-								return (vim.bo.fileencoding ~= "" and vim.bo.fileencoding or vim.o.encoding):upper()
-							end,
-						},
-
-						-- Line:Col (+ Visual WxH)
-						{
-							function()
-								local l, c = unpack(vim.api.nvim_win_get_cursor(0))
-								local out = string.format("%d:%d", l, c)
-
-								if vim.fn.mode():match("[vV\22]") then
-									local v = vim.fn.getpos("v")
-									local h = math.abs(v[2] - l) + 1
-									local w = math.abs(v[3] - c) + 1
-									out = out .. string.format(" (%dx%d)", w, h)
-								end
-
-								return out
-							end,
-						},
-
-						-- Clock
-						{
-							function()
-								return os.date("%H:%M")
-							end,
-							icon = "",
-						},
-					},
-
-					lualine_y = {},
-					lualine_z = {},
-				},
 			}
+		end
+	},
+
+	-- {{{ Neo-tree
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-tree/nvim-web-devicons", -- optional, but recommended
+		},
+		config = function()
+			require "neo-tree".setup {
+				open_files_do_not_replace_types = { "terminal", "Trouble", "qf" },
+				enable_git_status = true,
+				enable_diagnostics = true,
+			}
+			vim.api.nvim_set_hl(0, "NeoTreeNormal", vim.api.nvim_get_hl(0, { name = "Normal" }))
+			vim.api.nvim_set_hl(0, "NeoTreeNormalNC", vim.api.nvim_get_hl(0, { name = "Normal" }))
 		end
 	},
 	-- }}}

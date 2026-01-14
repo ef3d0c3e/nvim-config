@@ -145,3 +145,6 @@ opt.laststatus = 3
 
 -- Disable tabbar
 vim.o.showtabline = 0 
+
+-- Eanble cursorline
+vim.o.cursorline = true
