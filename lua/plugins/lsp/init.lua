@@ -146,10 +146,12 @@ local M = {
 	require "plugins.lsp.clangd".plugins,
 	require "plugins.lsp.rust-analyzer".plugins,
 	require "plugins.lsp.shellcheck".plugins,
+	require "plugins.lsp.luals".plugins,
 }
 
 require "plugins.lsp.clangd".init()
 require "plugins.lsp.rust-analyzer".init()
 require "plugins.lsp.shellcheck".init()
+require "plugins.lsp.luals".init()
 
 return M
