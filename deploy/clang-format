@@ -1,0 +1,8 @@
+BasedOnStyle: Mozilla
+---
+Language: Cpp
+ColumnLimit: 98
+UseTab: ForIndentation
+IndentWidth: 4
+AccessModifierOffset: 0
+TabWidth: 4
