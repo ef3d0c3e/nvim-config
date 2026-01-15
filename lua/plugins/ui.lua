@@ -10,7 +10,13 @@ return {
 		lazy = false,
 		opts = {
 			bigfile = { enabled = true },
-			dashboard = { enabled = true },
+			dashboard = {
+				enabled = true,
+				preset = {
+					header = [[
+					]]
+				}
+			},
 			input = { enabled = true },
 			notifier = {
 				enabled = true,
@@ -126,9 +132,10 @@ return {
 	-- {{{ Indent guide
 	{
 		"saghen/blink.indent",
+		enabled = false,
 		config = function()
-			require "blink.indent".setup {
-			}
+			--require "blink.indent".setup {
+			--}
 		end
 	},
 	-- }}}
@@ -143,12 +150,19 @@ return {
 	-- {{{ Statusline
 	{
 		"rebelot/heirline.nvim",
-		config = function() require "plugins.statusline" end,
+		config = function()
+			require "heirline".setup {
+				statusline = require "plugins.statusline",
+				statuscolumn = require "plugins.statuscol",
+			}
+		end,
 	},
 	-- }}}
 
 	{
 		"lewis6991/gitsigns.nvim",
+		lazy = false,
+		priority = 1000,
 		config = function()
 			require "gitsigns".setup {
 

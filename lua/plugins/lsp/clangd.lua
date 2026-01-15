@@ -47,23 +47,6 @@ return {
 							["template argument"] = "🆃",
 						},
 						kind_icons = {
-							Compound = "🄲",
-							Recovery = "🅁",
-							TranslationUnit = "🅄",
-							PackExpansion = "🄿",
-							TemplateTypeParm = "🅃",
-							TemplateTemplateParm = "🅃",
-							TemplateParamObject = "🅃",
-						},
-						role_icons = {
-							type = "",
-							declaration = "",
-							expression = "",
-							specifier = "",
-							statement = "",
-							["template argument"] = "",
-						},
-						kind_icons = {
 							Compound = "",
 							Recovery = "",
 							TranslationUnit = "",
@@ -73,7 +56,7 @@ return {
 							TemplateParamObject = "",
 						},
 						highlights = {
-							detail = "Comment",
+							detail = "LspInlayHint",
 						},
 					},
 					memory_usage = {

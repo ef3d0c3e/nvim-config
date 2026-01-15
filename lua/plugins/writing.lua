@@ -5,7 +5,7 @@ return {
 		event = "VeryLazy",
 		opts = {},
 	},
-	
+
 	-- {{{ Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -86,6 +86,7 @@ return {
 		'windwp/nvim-autopairs',
 		event = "InsertEnter",
 		opts = {
+			---@diagnostic disable-next-line: unused-local
 			enabled = function(bufnr) return true end, -- control if auto-pairs should be enabled when attaching to a buffer
 			disable_filetype = { "TelescopePrompt", "spectre_panel", "snacks_picker_input" },
 			disable_in_macro = true, -- disable when recording or executing a macro
@@ -127,7 +128,7 @@ return {
 		config = function()
 			require("norminette-lint").setup({
 				enable_on_start = false, -- Default to false to improve startup performance
-				keybinding = "<leader>Fn", -- Default keybinding, you can define yours
+				keybinding = "<leader>uN", -- Default keybinding, you can define yours
 			})
 		end
 	},

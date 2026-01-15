@@ -1,6 +1,4 @@
 -- Heirline status line
-local heirline = require("heirline")
-
 local function get_hl(name)
 	local h = vim.api.nvim_get_hl(0, { name = name })
 	return {
@@ -10,7 +8,6 @@ local function get_hl(name)
 end
 
 local Normal = get_hl("Normal")
-local StatusLine = get_hl("StatusLine")
 
 --local pill_separators = { "█", "█"}
 --local pill_separators = { "", ""}
@@ -282,11 +279,11 @@ local component_newline = Pill{
 	provider = function()
 		local format = vim.bo.fileformat
 		if format == "unix" then
-			return "LF"
+			return "␊"
 		elseif format == "dos" then
-			return "CRLF"
+			return "␍␊"
 		elseif format == "mac" then
-			return "CR"
+			return "␍"
 		else
 			return format:upper()
 		end
@@ -329,52 +326,51 @@ local component_clock = Pill{
 
 -- Clock refresh timer
 local timer = vim.loop.new_timer()
-timer:start(0, 60000, vim.schedule_wrap(function()
-	-- Force Heirline to redraw
-	vim.cmd("redrawstatus!")
-end))
+if timer then
+	timer:start(0, 60000, vim.schedule_wrap(function()
+		-- Force Heirline to redraw
+		vim.cmd("redrawstatus!")
+	end))
+end
 -- }}}
-
--- Setup heirline
-heirline.setup {
-	statusline = {
-		-- LEFT
-		{ provider = " " },
-		component_mode,
-		{ provider = " " },
-		component_project,
-		{
-			provider = " ",
-			condition = component_git.condition,
-		},
-		component_git,
-		-- CENTER
-		{ provider = "%=", hl = false },
-		component_lsp,
-		{
-			provider = " ",
-			condition =	component_diagnostics.condition,
-		},
-		component_diagnostics,
-		{ provider = "%=", hl = false },
-		-- RIGHT
-		component_macro,
-		{
-			provider = " ",
-			condition =	component_macro.condition,
-		},
-		component_encoding,
-		{
-			provider = " ",
-			condition =	component_encoding.condition,
-		},
-		component_newline,
-		{ provider = " " },
-		component_position,
-		{ provider = " " },
-		component_clock,
-	},
-}
 
 -- Transparent statusline background
 vim.api.nvim_set_hl(0, "StatusLine", { bg = "None" })
+
+return {
+	-- LEFT
+	{ provider = " " },
+	component_mode,
+	{ provider = " " },
+	component_project,
+	{
+		provider = " ",
+		condition = component_git.condition,
+	},
+	component_git,
+	-- CENTER
+	{ provider = "%=", hl = false },
+	component_lsp,
+	{
+		provider = " ",
+		condition =	component_diagnostics.condition,
+	},
+	component_diagnostics,
+	{ provider = "%=", hl = false },
+	-- RIGHT
+	component_macro,
+	{
+		provider = " ",
+		condition =	component_macro.condition,
+	},
+	component_encoding,
+	{
+		provider = " ",
+		condition =	component_encoding.condition,
+	},
+	component_newline,
+	{ provider = " " },
+	component_position,
+	{ provider = " " },
+	component_clock,
+}

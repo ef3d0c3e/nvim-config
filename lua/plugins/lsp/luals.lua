@@ -4,7 +4,7 @@ return {
 	},
 	init = function()
 		vim.lsp.config('lua_ls', {
-			on_attach = function (client, bufnr)
+			on_attach = function(client, bufnr)
 				require "nvim-navic".attach(client, bufnr)
 				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 			end,

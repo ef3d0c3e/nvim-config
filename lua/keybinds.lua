@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local wk = require("which-key")
 
 wk.add({
@@ -69,6 +70,7 @@ wk.add({
 	{ "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
 	{ "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
 	{ "<leader>uc", function() require("nvim-highlight-colors").toggle() end, desc = "Toggle color highlight" },
+	{ "<leader>uf", function() vim.lsp.buf.format({ async = false }) end, desc = "Format buffer" },
 	-- }}}
 
 	-- {{{ Splits
