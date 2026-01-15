@@ -81,16 +81,15 @@ wk.add({
 	{ "<A-l>", "<cmd>wincmd l<cr>", desc = "Move Right", mode = "nit" },
 	{ "<A-right>", "<cmd>wincmd l<cr>", desc = "Move Right", mode = "nit" },
 	-- Resize
-	{ "<A-H>", "<cmd>vertical resize +2<cr>", desc = "Resize Left",  mode = "nit" },
-	{ "<A-S-left>", "<cmd>vertical resize +2<cr>", desc = "Resize Left",  mode = "nit" },
-	{ "<A-L>", "<cmd>vertical resize -2<cr>", desc = "Resize Right", mode = "nit" },
-	{ "<A-S-right>", "<cmd>vertical resize -2<cr>", desc = "Resize Right", mode = "nit" },
+	{ "<A-H>", "<cmd>vertical resize -2<cr>", desc = "Resize Left",  mode = "nit" },
+	{ "<A-S-left>", "<cmd>vertical resize -2<cr>", desc = "Resize Left",  mode = "nit" },
+	{ "<A-L>", "<cmd>vertical resize +2<cr>", desc = "Resize Right", mode = "nit" },
+	{ "<A-S-right>", "<cmd>vertical resize +2<cr>", desc = "Resize Right", mode = "nit" },
 	{ "<A-S-down>", "<cmd>resize -2<cr>", desc = "Resize Down", mode = "nit" },
 	{ "<A-J>", "<cmd>resize -2<cr>", desc = "Resize Down", mode = "nit" },
 	{ "<A-S-up>", "<cmd>resize +2<cr>", desc = "Resize Up", mode = "nit" },
 	{ "<A-K>", "<cmd>resize +2<cr>", desc = "Resize Up", mode = "nit" },
 	-- }}}
-
 
 	-- TODO: Fix toggle only closing file explorer with edgy
 	{ "<F4>", "<cmd>Neotree toggle<cr>", desc = "Toggle file tree" },

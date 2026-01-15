@@ -1,3 +1,4 @@
+-- Heirline status line
 local heirline = require("heirline")
 
 local function get_hl(name)
@@ -10,6 +11,15 @@ end
 
 local Normal = get_hl("Normal")
 local StatusLine = get_hl("StatusLine")
+
+--local pill_separators = { "█", "█"}
+--local pill_separators = { "", ""}
+--local pill_separators = { "🭇🭄", "🭏🬼"}
+--local pill_separators = { " ", " " }
+local pill_separators = { "█", "█" }
+--local pill_separators = { " ", " " }
+--local pill_separators = { " ", " " }
+--local pill_separators = { " ", " " }
 
 -- Pill wrapper
 local function Pill(component)
@@ -28,7 +38,7 @@ local function Pill(component)
 
 	-- Left edge
 	table.insert(pill, {
-		provider = "",
+		provider = pill_separators[1],
 		hl = function()
 			local c = component.hl and component.hl() or { bg = Normal.bg }
 			return { fg = c.bg, bg = Normal.bg }
@@ -50,7 +60,7 @@ local function Pill(component)
 
 	-- Right edge
 	table.insert(pill, {
-		provider = "",
+		provider = pill_separators[2],
 		hl = function()
 			local c = component.hl and component.hl() or { bg = Normal.bg }
 			return { fg = c.bg, bg = Normal.bg }
@@ -95,7 +105,23 @@ end
 
 -- {{{ Mode
 local component_mode = Pill{
-	provider = function() return vim.fn.mode(1):sub(1,1):upper() end,
+	provider = function()
+		local symbols = {
+			n = "𝐍",
+			i = "𝐈",
+			v = "𝐯",
+			V = "𝐕",
+			['\22'] = "^𝐕",
+			c = "𝐂",
+			R = "𝐑",
+			s = "𝐬",
+			S = "𝐒",
+			t = "𝐓",
+		}
+		local mode = vim.fn.mode()
+
+		return symbols[mode] or vim.fn.mode(1):sub(1,1):upper()
+	end,
 	hl = function()
 		return mode_color()
 	end,
