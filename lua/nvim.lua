@@ -25,7 +25,14 @@ opt.hlsearch = true
 
 -- Trailing chars
 opt.list = true
-opt.listchars = {trail = '·', tab = '-->'}
+--opt.listchars = {trail = '·', tab = '-->'}
+vim.opt.listchars = {
+	tab = "🭰  ",
+	trail = "·",
+	extends = ">",
+	precedes = "<",
+	nbsp = "␣",
+}
 
 -- Writing
 opt.undolevels = 10000

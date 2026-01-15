@@ -40,9 +40,9 @@ local component_numbers = {
 	condition = function() return vim.v.virtnum == 0 end,
 	provider = function()
 		if vim.v.relnum == 0 then
-			return string.format("%3d ", vim.v.lnum)
+			return string.format("%3d▕", vim.v.lnum)
 		end
-		return string.format("%3d ", vim.v.relnum)
+		return string.format("%3d▕", vim.v.relnum)
 	end,
 	hl = function()
 		return vim.v.relnum == 0 and "StatuscolNumberCursor" or "StatuscolNumber"
@@ -175,7 +175,7 @@ vim.api.nvim_set_hl(0, "StatuscolVirtual", theme.virtual)
 local component_virtlines = {
 	condition = function() return vim.v.virtnum ~= 0 end,
 	provider = function()
-		return "         "
+		return "        "
 	end,
 	hl = "StatuscolVirtual",
 }

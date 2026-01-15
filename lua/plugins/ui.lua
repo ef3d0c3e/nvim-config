@@ -153,7 +153,7 @@ return {
 		config = function()
 			require "heirline".setup {
 				statusline = require "plugins.statusline",
-				statuscolumn = require "plugins.statuscol",
+				--statuscolumn = require "plugins.statuscol",
 			}
 		end,
 	},
