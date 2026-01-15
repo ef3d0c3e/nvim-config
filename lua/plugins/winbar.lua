@@ -20,7 +20,7 @@ local theme = {
 		HINT = { icon = "󰌵 ", style = { fg = "#2f7fcf", bg = normal_bg }},
 	},
 
-	filetype = { bg = "#2f2f39" },
+	filetype_bg = "#2f2f39",
 
 	filename = { fg = "#dfdfdf", bg = "#2f2f39", bold = true},
 	filename_readonly = { fg = "#df4f9f", bg = "#2f2f39"},
@@ -78,14 +78,14 @@ local function component_filetype(props, filename)
 		return {}
 	end
 	return {
-		{ "", guibg = normal_bg, guifg = "#2f2f39" },
-		{ ft_icon, guifg = ft_color, guibg = "#2f2f39"}
+		{ ft_icon, guifg = ft_color, guibg = theme.filetype_bg }
 	}
 end
 -- }}}
 
 -- {{{ Filename
 vim.api.nvim_set_hl(0, "WinbarFilename", theme.filename);
+vim.api.nvim_set_hl(0, "WinbarFilenameSep", { fg = theme.filename.bg, bg = normal_bg });
 vim.api.nvim_set_hl(0, "WinbarFilenameReadonly", theme.filename_readonly);
 vim.api.nvim_set_hl(0, "WinbarFilenameModified", theme.filename_modified);
 local function component_filename(props, filename)
@@ -112,6 +112,7 @@ for _, name in ipairs(groups) do
 		vim.api.nvim_set_hl(0, 'WinbarNavicIcons' .. typ, hi)
 	end
 end
+
 vim.api.nvim_set_hl(0, "WinbarNavicFilenameSep", theme.navic_filename_sep);
 vim.api.nvim_set_hl(0, "WinbarNavic", theme.navic);
 vim.api.nvim_set_hl(0, "WinbarNavicSeparator", theme.navic_separator);
@@ -175,6 +176,7 @@ incline.setup {
 		local res = {
 			component_git(props),
 			component_diagnostics(props),
+			{ "", group = "WinbarFilenameSep" },
 			component_filetype(props, filename),
 			component_filename(props, filename),
 			component_navic(props),

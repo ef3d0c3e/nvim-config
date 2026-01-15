@@ -86,8 +86,7 @@ local M = {
 								{ "label", "label_description", gap = 1 },
 							},
 						},
-  winhighlight = 'Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
-
+						winhighlight = 'Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
 					},
 
 					-- Show documentation when selecting a completion item
@@ -100,13 +99,6 @@ local M = {
 		end,
 	},
 	-- }}}
-
-	---- Better diagnostics
-	--{
-	--	"rachartier/tiny-inline-diagnostic.nvim",
-	--	priority = 1000, -- needs to be loaded in first
-	--	config = require "plugins.configs.lsp".tiny_inline_diagnostic.config,
-	--},
 
 	---- Allow lsp injection via lua
 	--{
@@ -123,20 +115,6 @@ local M = {
 			}
 		end,
 	},
-
-	---- Telescope as action preview
-	--{
-	--	"aznhe21/actions-preview.nvim",
-	--	dependencies = { "nvim-telescope/telescope.nvim" },
-	--	config = require "plugins.configs.lsp".actions_preview.config,
-	--},
-
-	-- Additional LSP action handler
-	--{
-	--	"jinzhongjia/LspUI.nvim",
-	--	branch = "main",
-	--	config = require "plugins.configs.lsp".lspui.config,
-	--},
 
 	---- Icons
 	--{
