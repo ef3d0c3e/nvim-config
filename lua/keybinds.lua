@@ -68,6 +68,7 @@ wk.add({
 	{ "<leader>u", group = "Menu", icon = "󰍜" },
 	{ "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
 	{ "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
+	{ "<leader>uc", function() require("nvim-highlight-colors").toggle() end, desc = "Toggle color highlight" },
 	-- }}}
 
 	-- {{{ Splits
@@ -116,3 +117,9 @@ wk.add({
 	{ "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode="n"},
 })
 -- }}}
+
+-- Toggle the profiler
+Snacks.toggle.profiler():map("<leader>up")
+-- Toggle the profiler highlights
+Snacks.toggle.profiler_highlights():map("<leader>uh")
+

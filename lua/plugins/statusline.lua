@@ -36,13 +36,28 @@ local function Pill(component)
 	-- Build the pill wrapper
 	local pill = {}
 
+	-- Cache
+	if not component.pill_cache then
+		component.pill_cache = {}
+	end
+
+	-- Cache highlight
+	if not component.pill_cache.hl then
+		component.pill_cache.hl = component.pill_cache.hl or (component.hl and component.hl() or { bg = Normal.bg })
+	end
+
+	local function edge_hl()
+		if component.dynamic_hl == true then
+			local c = component.hl and component.hl() or { bg = Normal.bg }
+			return { fg = c.bg, bg = Normal.bg }
+		end
+		return { fg = component.pill_cache.hl.bg, bg = Normal.bg }
+	end
+
 	-- Left edge
 	table.insert(pill, {
 		provider = pill_separators[1],
-		hl = function()
-			local c = component.hl and component.hl() or { bg = Normal.bg }
-			return { fg = c.bg, bg = Normal.bg }
-		end,
+		hl = edge_hl,
 	})
 
 	-- Parent
@@ -61,15 +76,13 @@ local function Pill(component)
 	-- Right edge
 	table.insert(pill, {
 		provider = pill_separators[2],
-		hl = function()
-			local c = component.hl and component.hl() or { bg = Normal.bg }
-			return { fg = c.bg, bg = Normal.bg }
-		end,
+		hl = edge_hl,
 	})
 
 	return {
 		condition = component.condition,
-		pill
+		pill,
+		update = component.update,
 	}
 end
 
@@ -122,6 +135,7 @@ local component_mode = Pill{
 
 		return symbols[mode] or vim.fn.mode(1):sub(1,1):upper()
 	end,
+	dynamic_hl = true, -- Prevent caching
 	hl = function()
 		return mode_color()
 	end,
@@ -130,17 +144,15 @@ local component_mode = Pill{
 -- }}}
 
 -- {{{ Project
+local function project_root()
+	local buf = vim.api.nvim_get_current_buf()
+	return vim.fs.root(buf, { ".git" }) or vim.fn.getcwd()
+end
+
 local component_project = Pill{
 	provider = function()
 		-- Try to get Git root
-		local git_root
-		local handle = io.popen("git rev-parse --show-toplevel 2> /dev/null")
-		if handle then
-			git_root = handle:read("*a")
-			handle:close()
-			git_root = git_root:gsub("%s+", "") -- trim newline
-		end
-
+		local git_root = project_root()
 		-- Fallback to cwd if no git repo
 		local path = git_root ~= "" and git_root or vim.fn.getcwd()
 		-- Return last directory name
@@ -149,68 +161,22 @@ local component_project = Pill{
 	hl = function()
 		return theme.project
 	end,
+	update = { "BufEnter", "DirChanged" }
 }
 -- }}}
 
 -- {{{ Git
--- Cache for git repositories
-local GIT = { cache = {} }
-local function get_git_branch(cwd)
-	local cmd = string.format(
-		"git -C %q rev-parse --abbrev-ref HEAD 2> /dev/null",
-		cwd
-	)
-
-	local handle = io.popen(cmd)
-	if not handle then
-		return nil
-	end
-
-	local branch = (handle:read("*a") or ""):gsub("%s+", "")
-	handle:close()
-
-	if branch == "" then
-		return nil
-	end
-
-	return branch
-end
-
-local function in_git_dir(cwd)
-	local branch = GIT.cache[cwd]
-	return branch ~= nil and branch ~= false
-end
-
-vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {
-	callback = function()
-		cwd = cwd or vim.loop.cwd()
-
-		local branch = get_git_branch(cwd)
-		if branch then
-			GIT.cache[cwd] = branch
-		else
-			GIT.cache[cwd] = false
-		end
-		-- force heirline redraw
-		vim.cmd("redrawstatus")
-	end,
-})
-
 local component_git = Pill{
 	condition = function(self)
-		return in_git_dir(vim.loop.cwd()) -- This condition is ignored
+		return vim.b.gitsigns_head ~= nil
 	end,
 	provider = function(self)
-		local cwd = vim.loop.cwd()
-		if in_git_dir(cwd) then
-			return "󰘬 " .. GIT.cache[cwd]
-		else
-			return "󰘬 " .. "unknown"
-		end
+		return "󰘬 " .. vim.b.gitsigns_head
 	end,
 	hl = function()
 		return theme.git
 	end,
+	update = { "BufEnter", "WinEnter" },
 }
 -- }}}
 
@@ -227,10 +193,10 @@ local component_lsp = Pill{
 		end
 		return "  " .. table.concat(names, " | ")
 	end,
-
 	hl = function()
 		return theme.lsp
 	end,
+	update = { "BufEnter", "WinEnter" },
 }
 -- }}}
 
@@ -280,7 +246,8 @@ local component_diagnostics = Pill{
 		diag_part("INFO"),
 		diag_part("HINT"),
 		diag_part("WARN"),
-	}
+	},
+	update = { "DiagnosticChanged", "BufEnter" },
 }
 -- }}}
 
@@ -293,6 +260,7 @@ local component_macro = Pill{
 		return "Recording @" .. vim.fn.reg_recording()
 	end,
 	hl = function() return theme.macro end,
+	update = { "ModeChanged" }
 }
 -- }}}
 
@@ -305,6 +273,7 @@ local component_encoding = Pill{
 		return vim.bo.fileencoding:upper()
 	end,
 	hl = function() return theme.encoding end,
+	update = { "BufEnter", "WinEnter", "OptionSet", "FileType" },
 }
 -- }}}
 
@@ -323,6 +292,7 @@ local component_newline = Pill{
 		end
 	end,
 	hl = function() return theme.newline end,
+	update = { "BufEnter", "WinEnter", "OptionSet", "FileType" },
 }
 -- }}}
 
@@ -361,7 +331,7 @@ local component_clock = Pill{
 local timer = vim.loop.new_timer()
 timer:start(0, 60000, vim.schedule_wrap(function()
 	-- Force Heirline to redraw
-	vim.cmd("redrawstatus")
+	vim.cmd("redrawstatus!")
 end))
 -- }}}
 

@@ -59,11 +59,13 @@ return {
 	-- {{{ Noice
 	{
 		"folke/noice.nvim",
-		config = function()
-			require "noice".setup {
-
-			}
-		end
+		opts = {
+			notify = { enabled = false },
+			lsp = {
+				hover = { enabled = false },
+				signature = { enabled = false },
+			},
+		}
 	},
 	-- }}}
 
@@ -93,7 +95,13 @@ return {
 
 	{
 		"brenoprata10/nvim-highlight-colors",
-		opts = {},
+		config = function()
+			require("nvim-highlight-colors").setup {
+				exclude_filetypes = { "statusline", "heirline", "incline" },
+				exclude_buftypes = { "nofile" },
+			}
+			require("nvim-highlight-colors").turnOff()
+		end
 	},
 	-- }}}
 
