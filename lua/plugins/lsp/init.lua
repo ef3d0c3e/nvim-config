@@ -81,7 +81,7 @@ local M = {
 						draw = {
 							columns = {
 								{ "kind_icon" },
-								{ "label", "label_description", gap = 1 },
+								{ "label",    "label_description", gap = 1 },
 							},
 						},
 						winhighlight = 'Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
@@ -100,56 +100,31 @@ local M = {
 
 	---- Allow lsp injection via lua
 	--{
-		--	"nvimtools/none-ls.nvim",
-		--},
+	--	"nvimtools/none-ls.nvim",
+	--},
 
-		-- LSP indexing status
-		{
-			"j-hui/fidget.nvim",
-			event = "VimEnter",
-			config = function()
-				require "fidget".setup {
+	-- LSP indexing status
+	{
+		"j-hui/fidget.nvim",
+		event = "VimEnter",
+		config = function()
+			require "fidget".setup {
 
-				}
-			end,
-		},
-
-		---- Icons
-		--{
-			--	"onsails/lspkind.nvim",
-			--	config = require "plugins.configs.lsp".lspkind.config,
-			--},
-
-			-- Put lsp hints at the end
-			--{
-				--	"https://github.com/felpafel/inlay-hint.nvim",
-				--	event = "LspAttach",
-				--	config = require "plugins.configs.lsp".inlay_hints.config,
-				--	branch = 'nightly',
-				--	lazy = false,
-				--},
-				{
-					"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-					event = "LspAttach", -- load after LSP attaches
-					config = function()
-						require "lsp_lines".setup {
-
-						}
-						require("lsp_lines").toggle()
-						vim.diagnostic.config({ virtual_text = false })
-					end,
-				},
-
-				-- Setup servers
-				require "plugins.lsp.clangd".plugins,
-				require "plugins.lsp.rust-analyzer".plugins,
-				require "plugins.lsp.shellcheck".plugins,
-				require "plugins.lsp.luals".plugins,
 			}
+		end,
+	},
 
-			require "plugins.lsp.clangd".init()
-			require "plugins.lsp.rust-analyzer".init()
-			require "plugins.lsp.shellcheck".init()
-			require "plugins.lsp.luals".init()
+	-- Setup servers
+	require "plugins.lsp.clangd".plugins,
+	require "plugins.lsp.rust-analyzer".plugins,
+	require "plugins.lsp.shellcheck".plugins,
+	require "plugins.lsp.luals".plugins,
+}
 
-			return M
+require "plugins.lsp.clangd".init()
+require "plugins.lsp.rust-analyzer".init()
+require "plugins.lsp.shellcheck".init()
+require "plugins.lsp.luals".init()
+require "plugins.lsp.diagnostics"
+
+return M
