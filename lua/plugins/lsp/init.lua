@@ -51,7 +51,13 @@ local M = {
 				},
 
 				sources = {
-					default = { 'lsp', 'path', 'snippets', 'buffer' },
+					default = { 'lsp', 'path', 'snippets', 'buffer', "comment_source" },
+					providers = {
+						comment_source = {
+							name = "Doxyvim",
+							module = "doxyvim.blink_source",  -- <- This must match your require path
+						},
+					},
 				},
 
 				fuzzy = { implementation = "prefer_rust_with_warning" },
@@ -93,6 +99,7 @@ local M = {
 					-- Display a preview of the selected item on the current line
 					ghost_text = { enabled = true },
 				},
+				signature = { enabled = true }
 			}
 		end,
 	},
@@ -114,17 +121,24 @@ local M = {
 		end,
 	},
 
+	-- Diagnostics on the right
+	{
+		"ef3d0c3e/nvim-right-diagnostics",
+		opts = {},
+	},
+
 	-- Setup servers
 	require "plugins.lsp.clangd".plugins,
 	require "plugins.lsp.rust-analyzer".plugins,
 	require "plugins.lsp.shellcheck".plugins,
 	require "plugins.lsp.luals".plugins,
+	require "plugins.lsp.nml".plugins,
 }
 
 require "plugins.lsp.clangd".init()
 require "plugins.lsp.rust-analyzer".init()
 require "plugins.lsp.shellcheck".init()
 require "plugins.lsp.luals".init()
-require "plugins.lsp.diagnostics"
+require "plugins.lsp.nml".init()
 
 return M

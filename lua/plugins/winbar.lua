@@ -174,12 +174,13 @@ incline.setup {
 		local ft_icon, ft_color = devicons.get_icon_color(filename)
 		local modified = vim.bo[props.buf].modified
 		local res = {
-			component_git(props),
+			--component_git(props),
 			component_diagnostics(props),
 			{ "", group = "WinbarFilenameSep" },
 			component_filetype(props, filename),
 			component_filename(props, filename),
-			component_navic(props),
+			{ "", group = "WinbarFilenameSep" },
+			--component_navic(props),
 		}
 		return res
 	end,

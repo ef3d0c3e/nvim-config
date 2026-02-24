@@ -12,12 +12,12 @@ return {
 				["rust-analyzer"] = {
 					diagnostics = {
 						enable = true,
-						disabled = { "unresolved-proc-macro" },
+						--disabled = { "unresolved-proc-macro" },
 						enableExperimental = true,
 					},
 					procMacro = {
 						enable = true,
-						ignore = { "auto_registry" },
+						--ignore = { "auto_registry" },
 					},
 					completion = {
 						addCallParenthesis = true,

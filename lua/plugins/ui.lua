@@ -25,7 +25,6 @@ return {
 			picker = { enabled = true },
 			quickfile = { enabled = true },
 			scope = { enabled = true },
-			words = { enabled = true },
 			styles = {
 				notification = {
 					-- wo = { wrap = true } -- Wrap notifications
@@ -126,17 +125,6 @@ return {
 		config = function()
 			require "nvim-navic".setup {}
 		end,
-	},
-	-- }}}
-
-	-- {{{ Indent guide
-	{
-		"saghen/blink.indent",
-		enabled = false,
-		config = function()
-			--require "blink.indent".setup {
-			--}
-		end
 	},
 	-- }}}
 

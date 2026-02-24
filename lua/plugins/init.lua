@@ -7,4 +7,5 @@ require("lazy").setup({
 	require "plugins.ui",
 	require "plugins.writing",
 	require "plugins.lsp",
+	--require "plugins.dev",
 })
