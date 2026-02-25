@@ -1,6 +1,6 @@
 -- Incline winbar
 local helpers = require "incline.helpers"
-local navic = require "nvim-navic"
+--local navic = require "nvim-navic"
 local devicons = require "nvim-web-devicons"
 local incline = require "incline"
 local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
@@ -103,39 +103,39 @@ end
 -- }}}
 
 -- {{{ Navic
-local groups = vim.fn.getcompletion('', 'highlight')
-for _, name in ipairs(groups) do
-	local typ = name:match('^NavicIcons(.+)$')
-	if typ then
-		local hi = vim.api.nvim_get_hl(0, { name = "NavicIcons" .. typ, link = false })
-		hi.bg = theme.navic_icons_bg
-		vim.api.nvim_set_hl(0, 'WinbarNavicIcons' .. typ, hi)
-	end
-end
-
-vim.api.nvim_set_hl(0, "WinbarNavicFilenameSep", theme.navic_filename_sep);
-vim.api.nvim_set_hl(0, "WinbarNavic", theme.navic);
-vim.api.nvim_set_hl(0, "WinbarNavicSeparator", theme.navic_separator);
-local function component_navic(props)
-	local res = {
-		{ "", group = "WinbarNavicFilenameSep" },
-	}
-	if not props.focused then
-		return res
-	end
-
-	for _, item in ipairs(navic.get_data(props.buf) or {}) do
-		table.insert(res, {
-			#res > 1 and { "  ", group = "WinbarNavicSeparator" } or { " ", group = "WinbarNavic" },
-			{ item.icon, group = "WinbarNavicIcons" .. item.type },
-			{ item.name, group = "WinbarNavic" },
-		})
-	end
-	if #res > 1 then
-		table.insert(res, { " ", group = "WinbarNavic" })
-	end
-	return res
-end
+--local groups = vim.fn.getcompletion('', 'highlight')
+--for _, name in ipairs(groups) do
+--	local typ = name:match('^NavicIcons(.+)$')
+--	if typ then
+--		local hi = vim.api.nvim_get_hl(0, { name = "NavicIcons" .. typ, link = false })
+--		hi.bg = theme.navic_icons_bg
+--		vim.api.nvim_set_hl(0, 'WinbarNavicIcons' .. typ, hi)
+--	end
+--end
+--
+--vim.api.nvim_set_hl(0, "WinbarNavicFilenameSep", theme.navic_filename_sep);
+--vim.api.nvim_set_hl(0, "WinbarNavic", theme.navic);
+--vim.api.nvim_set_hl(0, "WinbarNavicSeparator", theme.navic_separator);
+--local function component_navic(props)
+--	local res = {
+--		{ "", group = "WinbarNavicFilenameSep" },
+--	}
+--	if not props.focused then
+--		return res
+--	end
+--
+--	for _, item in ipairs(navic.get_data(props.buf) or {}) do
+--		table.insert(res, {
+--			#res > 1 and { "  ", group = "WinbarNavicSeparator" } or { " ", group = "WinbarNavic" },
+--			{ item.icon, group = "WinbarNavicIcons" .. item.type },
+--			{ item.name, group = "WinbarNavic" },
+--		})
+--	end
+--	if #res > 1 then
+--		table.insert(res, { " ", group = "WinbarNavic" })
+--	end
+--	return res
+--end
 -- }}}
 
 incline.setup {

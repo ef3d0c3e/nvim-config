@@ -5,7 +5,6 @@ return {
 			cmd = { "rust-analyzer" },
 			filetypes = { "rust" },
 			on_attach = function (client, bufnr)
-				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 				require "nvim-navic".attach(client, bufnr)
 			end,
 			settings = {

@@ -128,17 +128,17 @@ local M = {
 	},
 
 	-- Setup servers
-	require "plugins.lsp.clangd".plugins,
-	require "plugins.lsp.rust-analyzer".plugins,
-	require "plugins.lsp.shellcheck".plugins,
-	require "plugins.lsp.luals".plugins,
-	--require "plugins.lsp.nml".plugins,
+	require "plugins.languages.cxx".plugins,
+	require "plugins.languages.rust".plugins,
+	require "plugins.languages.shell".plugins,
+	require "plugins.languages.lua".plugins,
+	require "plugins.languages.nml".plugins,
 }
 
-require "plugins.lsp.clangd".init()
-require "plugins.lsp.rust-analyzer".init()
-require "plugins.lsp.shellcheck".init()
-require "plugins.lsp.luals".init()
---require "plugins.lsp.nml".init()
+require "plugins.languages.cxx".init()
+require "plugins.languages.rust".init()
+require "plugins.languages.shell".init()
+require "plugins.languages.lua".init()
+require "plugins.languages.nml".init()
 
 return M

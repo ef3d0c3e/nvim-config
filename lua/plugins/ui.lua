@@ -118,14 +118,14 @@ return {
 	-- }}}
 
 	-- {{{ LSP breadcrumbs (required by incline)
-	{
-		"SmiteshP/nvim-navic",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require "nvim-navic".setup {}
-		end,
-	},
+--	{
+--		"SmiteshP/nvim-navic",
+--		lazy = false,
+--		priority = 1000,
+--		config = function()
+--			require "nvim-navic".setup {}
+--		end,
+--	},
 	-- }}}
 
 	-- {{{ Buffer manager
