@@ -5,10 +5,14 @@ return {
 			cmd = { "rust-analyzer" },
 			filetypes = { "rust" },
 			on_attach = function (client, bufnr)
-				require "nvim-navic".attach(client, bufnr)
+				--require "nvim-navic".attach(client, bufnr)
+				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 			end,
 			settings = {
 				["rust-analyzer"] = {
+					cargo = {
+						allFeatures = true,
+					},
 					diagnostics = {
 						enable = true,
 						--disabled = { "unresolved-proc-macro" },
@@ -26,7 +30,7 @@ return {
 					},
 					inlayHints = {
 						bindingModeHints = {
-							enable = false,
+							enable = true,
 						},
 						chainingHints = {
 							enable = true,

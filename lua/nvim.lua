@@ -150,3 +150,4 @@ vim.o.showtabline = 0
 
 -- Eanble cursorline
 vim.o.cursorline = true
+vim.g.editorconfig = true

@@ -7,5 +7,6 @@ require("lazy").setup({
 	require "plugins.ui",
 	require "plugins.writing",
 	require "plugins.languages",
-	--require "plugins.dev",
+	require "plugins.dap",
+	require "plugins.dev",
 })

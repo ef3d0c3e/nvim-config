@@ -15,4 +15,5 @@ vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
 require "plugins"
 require "nvim"
+require "neovide"
 require "keybinds"

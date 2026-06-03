@@ -67,11 +67,16 @@ return {
 					},
 				})
 			end,
+		},
+		{
+			"J-Cowsert/classlayout.nvim",
+			ft = { "c", "cpp" },
+			opts = {},
 		}
 	},
 	init = function()
 		vim.lsp.config('clangd', {
-			on_attach = function (client, bufnr)
+			on_attach = function(client, bufnr)
 				vim.treesitter.start(bufnr)
 				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 			end,

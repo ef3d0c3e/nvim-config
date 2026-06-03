@@ -133,6 +133,7 @@ local M = {
 	require "plugins.languages.shell".plugins,
 	require "plugins.languages.lua".plugins,
 	require "plugins.languages.nml".plugins,
+	require "plugins.languages.asm".plugins
 }
 
 require "plugins.languages.cxx".init()
@@ -140,5 +141,6 @@ require "plugins.languages.rust".init()
 require "plugins.languages.shell".init()
 require "plugins.languages.lua".init()
 require "plugins.languages.nml".init()
+require "plugins.languages.asm".init()
 
 return M
