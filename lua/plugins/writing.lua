@@ -13,37 +13,6 @@ return {
 	},
 	-- }}}
 
-	-- {{{ Treesitter
-	{
-		"nvim-treesitter/nvim-treesitter",
-		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-		lazy = false,
-		config = function()
-			require("nvim-treesitter").setup({
-				install_dir = vim.fn.stdpath('data') .. '/site',
-				ensure_installed = {
-					"lua", "c", "cpp", "rust", "javascript", "typescript",
-				},
-				highlight = {
-					enable = true,
-					use_languagetree = true,
-				},
-
-				indent = { enable = true },
-
-				-- Settings for nvim-ts-autotag
-				autotag = {
-					enable = true,
-					enable_rename = true,
-					enable_close = true,
-					enable_close_on_slash = true,
-					filetypes = { "html", "xml" },
-				}
-			})
-		end
-	},
-	-- }}}
-
 	-- {{{ Doxygen
 	{
 		"ef3d0c3e/doxyvim",
@@ -149,7 +118,7 @@ return {
 	{
 		"ef3d0c3e/nvpass",
 		opts = {
-			vault_bin = vim.fn.expand("~/code/nvpass/target/debug/nvpass"),
+			vault_bin = vim.fn.expand("~/.install/bin/nvpass"),
 		}
 	},
 

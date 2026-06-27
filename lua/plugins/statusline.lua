@@ -9,11 +9,11 @@ end
 
 local Normal = get_hl("Normal")
 
---local pill_separators = { "█", "█"}
+local pill_separators = { "█", "█"}
 --local pill_separators = { "", ""}
 --local pill_separators = { "🭇🭄", "🭏🬼"}
 --local pill_separators = { " ", " " }
-local pill_separators = { "█", "█" }
+--local pill_separators = { "█", "█" }
 --local pill_separators = { " ", " " }
 --local pill_separators = { " ", " " }
 --local pill_separators = { " ", " " }
@@ -84,15 +84,15 @@ local function Pill(component)
 end
 
 local theme = {
-	project = { fg = "#aF70bF", bg = "#1f1f2a", bold = true },
-	git = { fg = "#2f74af", bg = "#1f1f1f", bold = true },
-	lsp = { fg = "#bf5f1f", bg = "#1f1f1f", bold = true },
-	diagnostics = { fg = "#ffffff", bg = "#1f1f1f", bold = true },
-	macro = { fg = "#f0dfaf", bg = "#1f1f1f", bold = true },
-	encoding = { fg = "#af87d7", bg = "#1f1f1f", bold = true },
-	newline = { fg = "#af87d7", bg = "#1f1f1f", bold = true },
-	position = { fg = "#d78787", bg = "#1f1f1f", bold = true },
-	clock = { fg = "#2f9fac", bg = "#1f1f1f", bold = true },
+	project = { fg = "#aF70bF", bg = "#2f2f2f", bold = true },
+	git = { fg = "#2f74af", bg = "#2f2f2f", bold = true },
+	lsp = { fg = "#ff7f4f", bg = "#2f2f2f", bold = true },
+	diagnostics = { fg = "#ffffff", bg = "#2f2f2f", bold = true },
+	macro = { fg = "#f0dfaf", bg = "#2f2f2f", bold = true },
+	encoding = { fg = "#af87d7", bg = "#2f2f2f", bold = true },
+	newline = { fg = "#af87d7", bg = "#2f2f2f", bold = true },
+	position = { fg = "#d78787", bg = "#2f2f2f", bold = true },
+	clock = { fg = "#2f9fac", bg = "#2f2f2f", bold = true },
 }
 
 local function mode_color()
@@ -188,7 +188,7 @@ local component_lsp = Pill{
 		for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
 			table.insert(names, client.name)
 		end
-		return "  " .. table.concat(names, " | ")
+		return "  " .. table.concat(names, " | ")
 	end,
 	hl = function()
 		return theme.lsp
@@ -335,11 +335,10 @@ end
 -- }}}
 
 -- Transparent statusline background
-vim.api.nvim_set_hl(0, "StatusLine", { bg = "None" })
+--vim.api.nvim_set_hl(0, "StatusLine", { bg = "None" })
 
 return {
 	-- LEFT
-	{ provider = " " },
 	component_mode,
 	{ provider = " " },
 	component_project,
@@ -371,6 +370,6 @@ return {
 	component_newline,
 	{ provider = " " },
 	component_position,
-	{ provider = " " },
-	component_clock,
+	--{ provider = " " },
+	--component_clock,
 }

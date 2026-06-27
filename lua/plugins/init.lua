@@ -8,5 +8,4 @@ require("lazy").setup({
 	require "plugins.writing",
 	require "plugins.languages",
 	require "plugins.dap",
-	require "plugins.dev",
 })

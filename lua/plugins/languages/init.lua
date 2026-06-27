@@ -143,4 +143,6 @@ require "plugins.languages.lua".init()
 require "plugins.languages.nml".init()
 require "plugins.languages.asm".init()
 
+vim.api.nvim_create_user_command('LspLog', 'e ~/.local/state/nvim/lsp.log', {})
+
 return M

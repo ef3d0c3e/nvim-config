@@ -11,18 +11,21 @@ return {
 		opts = {
 			bigfile = { enabled = true },
 			dashboard = {
-				enabled = true,
-				preset = {
-					header = [[
-					]]
-				}
+				enabled = false,
 			},
 			input = { enabled = true },
 			notifier = {
 				enabled = true,
 				timeout = 3000,
 			},
-			picker = { enabled = true },
+			picker = {
+				enabled = true,
+				layout = {
+					preview = "main",
+					preset = "ivy",
+				},
+
+			},
 			quickfile = { enabled = true },
 			scope = { enabled = true },
 			styles = {
@@ -52,10 +55,10 @@ return {
 		},
 		keys = {
 			-- Other
-			{ "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
-			{ "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
-			{ "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
-			{ "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+			{ "<c-/>", function() Snacks.terminal() end,                desc = "Toggle Terminal" },
+			{ "<c-_>", function() Snacks.terminal() end,                desc = "which_key_ignore" },
+			{ "]]",    function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",  mode = { "n", "t" } },
+			{ "[[",    function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",  mode = { "n", "t" } },
 		},
 	},
 	-- }}}
@@ -66,8 +69,15 @@ return {
 		opts = {
 			notify = { enabled = false },
 			lsp = {
-				hover = { enabled = false },
-				signature = { enabled = false },
+				hover = { enabled = true },
+				signature = { enabled = true },
+			},
+			presets = {
+				bottom_search = true, -- use a classic bottom cmdline for search
+				command_palette = true, -- position the cmdline and popupmenu together
+				long_message_to_split = true, -- long messages will be sent to a split
+				inc_rename = false, -- enables an input dialog for inc-rename.nvim
+				lsp_doc_border = false, -- add a border to hover docs and signature help
 			},
 		}
 	},
@@ -90,10 +100,9 @@ return {
 				transparent = false
 			}
 			vim.cmd("colorscheme teide-dark")
-			vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "#293038"})
-			vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg= "#6272a4" })
-			vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg= "#6272a4" })
-
+			vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "#293038" })
+			vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#6272a4" })
+			vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#6272a4" })
 		end
 	},
 
@@ -118,14 +127,14 @@ return {
 	-- }}}
 
 	-- {{{ LSP breadcrumbs (required by incline)
---	{
---		"SmiteshP/nvim-navic",
---		lazy = false,
---		priority = 1000,
---		config = function()
---			require "nvim-navic".setup {}
---		end,
---	},
+	--	{
+	--		"SmiteshP/nvim-navic",
+	--		lazy = false,
+	--		priority = 1000,
+	--		config = function()
+	--			require "nvim-navic".setup {}
+	--		end,
+	--	},
 	-- }}}
 
 	-- {{{ Buffer manager
