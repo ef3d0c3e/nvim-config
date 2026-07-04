@@ -1,10 +1,13 @@
 local opt = vim.opt
 
-vim.opt.background = 'dark'
-vim.opt.termguicolors = true
+opt.background = "dark"
+opt.termguicolors = true
+vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
+
 
 -- Copy/Pasting
-opt.backupcopy = 'yes'
+opt.backupcopy = "yes"
 opt.clipboard = "unnamedplus"
 
 -- Tabs
@@ -25,7 +28,7 @@ opt.hlsearch = true
 
 -- Trailing chars
 opt.list = true
---opt.listchars = {trail = '·', tab = '-->'}
+--opt.listchars = {trail = "·", tab = "-->"}
 vim.opt.listchars = {
 	tab = "🭰  ",
 	trail = "·",
@@ -41,15 +44,15 @@ opt.undolevels = 10000
 opt.re = 0
 
 -- Numbers
-opt.number = true
-opt.relativenumber = true
+opt.number = false
+opt.relativenumber = false
 opt.numberwidth = 1
 
 -- disable nvim intro
 opt.shortmess:append "sI"
 
 -- Ui
---opt.signcolumn = 'yes:1' -- Adds padding
+--opt.signcolumn = "yes:1" -- Adds padding
 opt.splitbelow = false
 opt.splitright = true
 opt.showmode = false
@@ -76,16 +79,16 @@ for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
 end
 
 -- Completion
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
+opt.completeopt = { "menu", "menuone", "noselect" }
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 -- opt.wrap = false -- Disable line wrap
 
 -- Encoding/Formatting
-opt.encoding = 'UTF-8'
-opt.fileformat = 'unix'
+opt.encoding = "UTF-8"
+opt.fileformat = "unix"
 
 -- Globals
-opt.mouse = 'a'
+opt.mouse = "a"
 
 vim.g.autoformat = true
 vim.opt.fillchars = {
@@ -95,28 +98,28 @@ vim.opt.fillchars = {
 	foldsep = " ",
 	diff = "╱",
 	eob = " ",
-	horiz     = '─',
-	horizup   = '┴',
-	horizdown = '┬',
-	vert      = '│',
-	vertleft  = '┤',
-	vertright = '├',
-	verthoriz = '┼',
+	horiz     = "─",
+	horizup   = "┴",
+	horizdown = "┬",
+	vert      = "│",
+	vertleft  = "┤",
+	vertright = "├",
+	verthoriz = "┼",
 }
 
 vim.diagnostic.config({
 	signs = {
 		text = {
-			[vim.diagnostic.severity.ERROR] = ' ',
-			[vim.diagnostic.severity.WARN] = ' ',
-			[vim.diagnostic.severity.INFO] = '',
-			[vim.diagnostic.severity.HINT] = '󰌵',
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+			[vim.diagnostic.severity.HINT] = "󰌵 ",
 		},
 		linehl = {
-			[vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+			[vim.diagnostic.severity.ERROR] = "ErrorMsg",
 		},
 		numhl = {
-			[vim.diagnostic.severity.WARN] = 'WarningMsg',
+			[vim.diagnostic.severity.WARN] = "WarningMsg",
 		},
 	},
 })
@@ -135,7 +138,7 @@ opt.foldenable = true
 -- <Esc><Esc> To exit terminal mode
 vim.api.nvim_create_autocmd("TermOpen", {
 	desc = "Custom terminal",
-	callback = function(args)
+	callback = function(_)
 		vim.opt_local.number = false
 		vim.opt_local.relativenumber = false
 		vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<c-\\><c-n><Cr>", {})
@@ -146,8 +149,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
 opt.laststatus = 3
 
 -- Disable tabbar
-vim.o.showtabline = 0 
+vim.o.showtabline = 0
 
 -- Eanble cursorline
 vim.o.cursorline = true
 vim.g.editorconfig = true
+
+opt.emoji = true

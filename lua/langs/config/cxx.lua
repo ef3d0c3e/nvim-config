@@ -1,5 +1,4 @@
 return {
-	-- Support clangd lsp extensions
 	plugins =
 	{
 		{
@@ -74,8 +73,9 @@ return {
 			opts = {},
 		}
 	},
-	init = function()
+	setup = function()
 		vim.lsp.config('clangd', {
+			---@diagnostic disable-next-line: unused-local
 			on_attach = function(client, bufnr)
 				vim.treesitter.start(bufnr)
 				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })

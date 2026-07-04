@@ -1,7 +1,4 @@
 return {
-	init = function()
-	end,
-
 	plugins = {
 		{
 			"pablos123/shellcheck.nvim",

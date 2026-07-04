@@ -1,19 +1,66 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
-vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
-require "plugins"
-require "nvim"
-require "neovide"
-require "keybinds"
+require("nvim")
+
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+local lang_plugins = require("langs.config").plugins
+
+require('lazy').setup(
+	{
+		{
+			"nyoom-engineering/oxocarbon.nvim",
+			priority = 1000,
+			config = function ()
+				vim.cmd("colorscheme oxocarbon")
+			end,
+		},
+		"nvim-lua/plenary.nvim",
+		"MunifTanjim/nui.nvim",
+		"nvim-tree/nvim-web-devicons",
+		{ import = "ui.plugins" },
+		{ import = "misc.editing" },
+		{ import = "misc.git" },
+		{ import = "langs.treesitter" },
+		{ import = "langs.lsp" },
+		lang_plugins,
+	},
+	{
+		rocks = {
+			hererocks = true,
+		},
+		performance = {
+			cache = { enabled = true },
+			defaults = { lazy = true },
+			checker = { enabled = false },
+			rtp = {
+				-- stylua: ignore
+				disabled_plugins = {
+					"gzip", 'netrw', "netrwPlugin",
+					"rplugin", "tarPlugin",
+					"tutor", "zipPlugin",
+				},
+			},
+		},
+		change_detection = {
+			notify = false,
+		},
+	})
+
+require("keymap")
+require("ui.buf_switcher").setup()
+require("ui.diagnostics").setup()
+require("langs.config").setup()
+require("ui.color_highlight").setup()
+require("ui.menu").setup()

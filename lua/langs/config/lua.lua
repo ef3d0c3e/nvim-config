@@ -1,9 +1,7 @@
 return {
-	plugins =
-	{
-	},
-	init = function()
+	setup = function ()
 		vim.lsp.config('lua_ls', {
+			---@diagnostic disable-next-line: unused-local
 			on_attach = function(client, bufnr)
 				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 			end,

@@ -1,10 +1,10 @@
 return {
-	plugins = {},
-	init = function()
+	setup = function()
 		vim.lsp.config('rust-analyzer', {
-			cmd = { "rust-analyzer" },
+			cmd = { vim.fn.expand("~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer") },
 			filetypes = { "rust" },
-			on_attach = function (client, bufnr)
+			---@diagnostic disable-next-line: unused-local
+			on_attach = function(client, bufnr)
 				--require "nvim-navic".attach(client, bufnr)
 				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 			end,
