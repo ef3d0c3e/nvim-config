@@ -13,7 +13,7 @@ return {
 		dependencies = {
 			"neovim/nvim-lspconfig",
 			"xzbdmw/colorful-menu.nvim",
-			{ 'L3MON4D3/LuaSnip', version = 'v2.*' },
+			--{ 'L3MON4D3/LuaSnip', version = 'v2.*' },
 		},
 
 		-- use a release tag to download pre-built binaries
@@ -81,7 +81,7 @@ return {
 				nerd_font_variant = "mono"
 			},
 
-			snippets = { preset = 'luasnip' },
+			--snippets = { preset = 'luasnip' },
 
 			completion = {
 				menu = {

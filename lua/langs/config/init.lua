@@ -13,7 +13,6 @@ local languages = {
 }
 
 function M.setup()
-	require "langs.config.lua".setup()
 	for _, lang in ipairs(languages) do
 		local mod = require("langs.config." .. lang)
 		if mod.setup then
@@ -24,7 +23,11 @@ end
 
 for _, lang in ipairs(languages) do
 	local mod = require("langs.config." .. lang)
-	M.plugins = vim.tbl_deep_extend("force", M.plugins, mod.plugins or {})
+	if mod.plugins and #mod.plugins > 0 then
+		for _, plugin in pairs(mod.plugins) do
+			M.plugins[#M.plugins + 1] = plugin
+		end
+	end
 end
 
 return M
