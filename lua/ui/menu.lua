@@ -354,6 +354,21 @@ local options = {
 		tags = { "lsp" },
 		callback = function() vim.lsp.buf.format({ async = false }) end
 	},
+
+	MenuToggle {
+		desc = "Toggle inlay hints",
+		tags = { "lsp", "ui" },
+		is_active = function ()
+			return vim.lsp.inlay_hint.is_enabled({bufnr = 0})
+		end,
+		callback = function(self) 
+			if self:is_active() then
+				vim.lsp.inlay_hint.enable(false, {bufnr = 0})
+			else
+				vim.lsp.inlay_hint.enable(true, {bufnr = 0})
+			end
+		end
+	},
 	-- }}}
 }
 
