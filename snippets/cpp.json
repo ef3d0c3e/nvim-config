@@ -1,1 +1,14 @@
-{}
+{
+  "ifndef + ifdef": {
+    "body": [
+      "#ifndef ${1:}",
+      "#define ${1:}",
+      "",
+      "#endif // ${1:}"
+    ],
+    "prefix": [
+      "ifndef",
+      "ifdef"
+    ]
+  },
+}

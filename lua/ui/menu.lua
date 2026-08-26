@@ -315,35 +315,62 @@ local options = {
 			return self.active
 		end,
 		callback = function(self)
-			self.active = require("gitsigns").toggle_current_line_blame()
+			self.active = require("gitsigns").toggle_current_line_blame(nil)
+
+			local timer = vim.uv.new_timer()
+			timer:start(1000, 0, vim.schedule_wrap( function()
+				require("gitsigns.current_line_blame").refresh()
+			end ))
 		end
 	},
-	MenuAction { key = "<leader>Gb", desc = "Git Branches", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.picker.git_branches() end },
-	MenuAction { key = "<leader>Gl", desc = "Git Log", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.picker.git_log() end },
-	MenuAction { key = "<leader>GL", desc = "Git Log Line", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.picker.git_log_line() end },
-	MenuAction { key = "<leader>Gs", desc = "Git Status", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.picker.git_status() end },
-	MenuAction { key = "<leader>GS", desc = "Git Stash", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.picker.git_stash() end },
+
+	MenuAction { key = "<leader>Gb", desc = "Git Branches", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.picker.git_branches()
+	end },
+	MenuAction { key = "<leader>Gl", desc = "Git Log", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.picker.git_log()
+	end },
+	MenuAction { key = "<leader>GL", desc = "Git Log Line", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.picker.git_log_line()
+	end },
+	MenuAction { key = "<leader>Gs", desc = "Git Status", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.picker.git_status()
+	end },
+	MenuAction { key = "<leader>GS", desc = "Git Stash", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.picker.git_stash()
+	end },
 	MenuAction { key = "<leader>Gd", desc = "Git Diff (Hunks)", icon = "󰊢 ", tags = { "git" }, callback = function()
-		Snacks.picker.git_diff() end },
-	MenuAction { key = "<leader>Gf", desc = "Git Log File", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.picker.git_log_file() end },
-	MenuAction { key = "<leader>GB", desc = "Git Browse", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.gitbrowse() end, },
-	MenuAction { key = "<leader>Gg", desc = "Lazygit", icon = "󰊢 ", tags = { "git" }, callback = function() Snacks
-			.lazygit() end },
+		Snacks.picker.git_diff()
+	end },
+	MenuAction { key = "<leader>Gf", desc = "Git Log File", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.picker.git_log_file()
+	end },
+	MenuAction { key = "<leader>GB", desc = "Git Browse", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.gitbrowse()
+	end, },
+	MenuAction { key = "<leader>Gg", desc = "Lazygit", icon = "󰊢 ", tags = { "git" }, callback = function()
+		Snacks
+			.lazygit()
+	end },
 	MenuAction { key = "<leader>Gi", desc = "GitHub Issues (open)", icon = "󰊢 ", tags = { "git" }, callback = function()
-		Snacks.picker.gh_issue() end },
+		Snacks.picker.gh_issue()
+	end },
 	MenuAction { key = "<leader>GI", desc = "GitHub Issues (all)", icon = "󰊢 ", tags = { "git" }, callback = function()
-		Snacks.picker.gh_issue({ state = "all" }) end },
+		Snacks.picker.gh_issue({ state = "all" })
+	end },
 	MenuAction { key = "<leader>Gp", desc = "GitHub Pull Requests (open)", icon = "󰊢 ", tags = { "git" }, callback = function()
-		Snacks.picker.gh_pr() end },
+		Snacks.picker.gh_pr()
+	end },
 	MenuAction { key = "<leader>GP", desc = "GitHub Pull Requests (all)", icon = "󰊢 ", tags = { "git" }, callback = function()
-		Snacks.picker.gh_pr({ state = "all" }) end },
+		Snacks.picker.gh_pr({ state = "all" })
+	end },
 	-- }}}
 
 	-- {{{ LSP
@@ -358,14 +385,14 @@ local options = {
 	MenuToggle {
 		desc = "Toggle inlay hints",
 		tags = { "lsp", "ui" },
-		is_active = function ()
-			return vim.lsp.inlay_hint.is_enabled({bufnr = 0})
+		is_active = function()
+			return vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
 		end,
-		callback = function(self) 
+		callback = function(self)
 			if self:is_active() then
-				vim.lsp.inlay_hint.enable(false, {bufnr = 0})
+				vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
 			else
-				vim.lsp.inlay_hint.enable(true, {bufnr = 0})
+				vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 			end
 		end
 	},
@@ -407,8 +434,13 @@ function M.setup()
 					table[#table + 1] = { v, function() entry:callback() end, desc = entry.desc, icon = entry._wk_icon }
 				end
 			else
-				table[#table + 1] = { entry.key, function() entry:callback() end, desc = entry.desc, icon = entry
-				._wk_icon }
+				table[#table + 1] = {
+					entry.key,
+					function() entry:callback() end,
+					desc = entry.desc,
+					icon = entry
+						._wk_icon
+				}
 			end
 		end
 	end

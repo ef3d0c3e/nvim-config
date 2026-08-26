@@ -20,10 +20,10 @@ local lang_plugins = require("langs.config").plugins
 require('lazy').setup(
 	{
 		{
-			"nyoom-engineering/oxocarbon.nvim",
+			"WeiTing1991/suannhai.nvim",
 			priority = 1000,
-			config = function ()
-				vim.cmd("colorscheme oxocarbon")
+			config = function()
+				vim.cmd("colorscheme suannhai-sumi")
 			end,
 		},
 		"nvim-lua/plenary.nvim",

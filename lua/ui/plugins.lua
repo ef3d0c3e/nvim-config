@@ -1,6 +1,7 @@
 return {
 	{
 		"ef3d0c3e/colr-icons",
+		priority = 1000,
 		opts = {
 			icons =
 			{
