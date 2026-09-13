@@ -10,6 +10,7 @@ local languages = {
 	"asm",
 	"doxygen",
 	"markdown",
+	"fluent",
 }
 
 function M.setup()
