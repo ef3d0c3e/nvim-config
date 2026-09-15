@@ -355,10 +355,6 @@ local options = {
 		Snacks
 			.gitbrowse()
 	end, },
-	MenuAction { key = "<leader>Gg", desc = "Lazygit", icon = "󰊢 ", tags = { "git" }, callback = function()
-		Snacks
-			.lazygit()
-	end },
 	MenuAction { key = "<leader>Gi", desc = "GitHub Issues (open)", icon = "󰊢 ", tags = { "git" }, callback = function()
 		Snacks.picker.gh_issue()
 	end },

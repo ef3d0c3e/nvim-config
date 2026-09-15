@@ -135,4 +135,15 @@ return {
 		"serhez/bento.nvim",
 		opts = {},
 	},
+
+	-- NeoGit
+	{
+		"https://github.com/NeogitOrg/neogit",
+		dependencies = {
+			"https://github.com/sindrets/diffview.nvim",
+			"m00qek/baleia.nvim",
+			"folke/snacks.nvim",
+		},
+		opts = {},
+	},
 }
